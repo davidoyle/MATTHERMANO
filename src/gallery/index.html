@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lost in Your Eyes — Matt Hermano</title>
+    <title>Gallery — Matt Hermano</title>
+    <meta name="description" content="Live show gallery for Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,24 +17,36 @@
     <div class="site-shell">
       <header class="top-nav">
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation"><ul class="nav-links">
+        <nav aria-label="Main navigation">
+          <ul class="nav-links">
             <li><a href="/">Music</a></li>
             <li><a href="/#video">Video</a></li>
             <li><a href="/gallery/">Gallery</a></li>
             <li><a href="/about/">About</a></li>
             <li><a href="/book/">Book</a></li>
-          </ul></nav>
+          </ul>
+        </nav>
       </header>
+
       <main class="page">
-        <h1 class="track-title">Lost in Your Eyes</h1>
-        <p class="hero-meta">Track 01 · 3:33</p>
-        <div class="embed-wrap"><iframe src="https://open.spotify.com/embed/track/0kuTNBoL52fIatGLuJ7CJO" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Lost in Your Eyes player"></iframe></div>
-        <div class="share-buttons">
-          <a class="share-link" href="https://heymhmusic.com/track/3547680/lost-in-your-eyes" target="_blank" rel="noreferrer">Platform</a>
-          <a class="share-link" href="https://twitter.com/intent/tweet?text=Listening%20to%20Lost%20in%20your%20eyes%20by%20Matt%20Hermano&url=https://matt-hermano.vercel.app/track/3547680/lost-in-your-eyes">Share</a>
-        </div>
+        <section class="hero gallery-hero">
+          <div>
+            <h1>Gallery</h1>
+          </div>
+          <p class="hero-meta gallery-subheading">Live shows</p>
+        </section>
+
+        <section class="gallery" data-gallery tabindex="0" aria-label="Gallery carousel">
+          <div class="gallery-viewport" data-gallery-viewport></div>
+          <div class="gallery-controls">
+            <button class="gallery-arrow" type="button" data-gallery-prev aria-label="Previous photo">←</button>
+            <p class="gallery-counter" data-gallery-counter>1 / 1</p>
+            <button class="gallery-arrow" type="button" data-gallery-next aria-label="Next photo">→</button>
+          </div>
+        </section>
       </main>
     </div>
+
     <script type="module" src="/main.ts"></script>
   </body>
 </html>
