@@ -1,12 +1,15 @@
 {
   "name": "matthermano-site",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc --project tsconfig.json && cp index.html home.html about.html book.html gallery.html _redirects dist/ && cp src/styles.css dist/ && cp ./*.webp dist/",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^6.2.0"
   }
 }
