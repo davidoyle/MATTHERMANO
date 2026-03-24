@@ -19,6 +19,11 @@ const tracks = [
         link: "https://heymhmusic.com/track/3920363/matt-hermano-ghost-me",
     },
 ];
+const activeTimers = new Map();
+const toClock = (seconds) => {
+    const mins = Math.floor(seconds / 60)
+        .toString()
+        .padStart(1, "0");
 const galleryImages = [
     "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ==.webp",
     "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (1).webp",
@@ -54,6 +59,15 @@ const toClock = (seconds) => {
         .padStart(2, "0");
     return `${mins}:${secs}`;
 };
+const startPlayer = (index, progressBar, currentTimeNode, button, totalDuration) => {
+    const previousTimer = activeTimers.get(index);
+    if (previousTimer) {
+        window.clearInterval(previousTimer);
+        activeTimers.delete(index);
+        button.textContent = "Play";
+        return;
+    }
+    button.textContent = "Pause";
 const sectionLabel = (label) => `
   <header class="section-header">
     <span>${label}</span>
@@ -88,12 +102,37 @@ const startPlayer = (index, progressBar, currentTimeNode, button, totalDuration)
         if (elapsed >= totalDuration) {
             window.clearInterval(timer);
             activeTimers.delete(index);
+            button.textContent = "Play";
             button.classList.remove("is-playing");
             button.setAttribute("aria-label", "Play preview");
         }
     }, 1000);
     activeTimers.set(index, timer);
 };
+const trackList = document.querySelector("#tracks");
+if (trackList) {
+    tracks.forEach((track, index) => {
+        const card = document.createElement("article");
+        card.className = "track";
+        const headingId = `track-${index}-title`;
+        card.innerHTML = `
+      <div class="track-header">
+        <h3 id="${headingId}">${track.title}</h3>
+        <a href="${track.link}" target="_blank" rel="noreferrer">Share</a>
+      </div>
+      <div class="player" aria-labelledby="${headingId}">
+        <button type="button">Play</button>
+        <div class="progress"><span></span></div>
+        <span>${track.durationLabel}</span>
+      </div>
+      <div class="meta">
+        <span class="current-time">0:00</span>
+        <a href="${track.link}" target="_blank" rel="noreferrer">Track page</a>
+      </div>
+    `;
+        const button = card.querySelector("button");
+        const progressBar = card.querySelector(".progress > span");
+        const currentTimeNode = card.querySelector(".current-time");
 const initializeTracks = () => {
     const trackList = document.querySelector("#tracks");
     if (!trackList) {
@@ -133,6 +172,9 @@ const initializeTracks = () => {
                 startPlayer(index, progressBar, currentTimeNode, button, track.durationSeconds);
             });
         }
+        trackList.append(card);
+    });
+}
         trackRows.append(row);
     });
 };

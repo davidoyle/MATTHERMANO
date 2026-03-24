@@ -26,6 +26,12 @@ const tracks: Track[] = [
   },
 ];
 
+const activeTimers = new Map<number, number>();
+
+const toClock = (seconds: number): string => {
+  const mins = Math.floor(seconds / 60)
+    .toString()
+    .padStart(1, "0");
 const galleryImages: string[] = [
   "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ==.webp",
   "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (1).webp",
@@ -92,6 +98,14 @@ const startPlayer = (
   totalDuration: number,
 ): void => {
   const previousTimer = activeTimers.get(index);
+  if (previousTimer) {
+    window.clearInterval(previousTimer);
+    activeTimers.delete(index);
+    button.textContent = "Play";
+    return;
+  }
+
+  button.textContent = "Pause";
 
   if (previousTimer) {
     stopTrack(index, button);
@@ -114,6 +128,7 @@ const startPlayer = (
     if (elapsed >= totalDuration) {
       window.clearInterval(timer);
       activeTimers.delete(index);
+      button.textContent = "Play";
       button.classList.remove("is-playing");
       button.setAttribute("aria-label", "Play preview");
     }
@@ -122,6 +137,34 @@ const startPlayer = (
   activeTimers.set(index, timer);
 };
 
+const trackList = document.querySelector<HTMLDivElement>("#tracks");
+
+if (trackList) {
+  tracks.forEach((track, index) => {
+    const card = document.createElement("article");
+    card.className = "track";
+
+    const headingId = `track-${index}-title`;
+
+    card.innerHTML = `
+      <div class="track-header">
+        <h3 id="${headingId}">${track.title}</h3>
+        <a href="${track.link}" target="_blank" rel="noreferrer">Share</a>
+      </div>
+      <div class="player" aria-labelledby="${headingId}">
+        <button type="button">Play</button>
+        <div class="progress"><span></span></div>
+        <span>${track.durationLabel}</span>
+      </div>
+      <div class="meta">
+        <span class="current-time">0:00</span>
+        <a href="${track.link}" target="_blank" rel="noreferrer">Track page</a>
+      </div>
+    `;
+
+    const button = card.querySelector("button");
+    const progressBar = card.querySelector<HTMLSpanElement>(".progress > span");
+    const currentTimeNode = card.querySelector<HTMLElement>(".current-time");
 const initializeTracks = (): void => {
   const trackList = document.querySelector<HTMLDivElement>("#tracks");
 
@@ -170,6 +213,9 @@ const initializeTracks = (): void => {
       });
     }
 
+    trackList.append(card);
+  });
+}
     trackRows.append(row);
   });
 };
