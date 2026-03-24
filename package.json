@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json && cp index.html home.html about.html book.html gallery.html _redirects dist/ && cp src/styles.css dist/ && cp ./*.webp dist/",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
