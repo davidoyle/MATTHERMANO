@@ -11,6 +11,7 @@ export default defineConfig({
         main: resolve(__dirname, "src/index.html"),
         about: resolve(__dirname, "src/about/index.html"),
         book: resolve(__dirname, "src/book/index.html"),
+        gallery: resolve(__dirname, "src/gallery/index.html"),
         track1: resolve(__dirname, "src/track/3547680/lost-in-your-eyes.html"),
         track2: resolve(__dirname, "src/track/3657550/one-night-love.html"),
         track3: resolve(__dirname, "src/track/3920363/ghost-me.html")

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About — Matt Hermano</title>
-    <meta name="description" content="About Matt Hermano." />
+    <title>Gallery — Matt Hermano</title>
+    <meta name="description" content="Live show gallery for Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,21 +29,21 @@
       </header>
 
       <main class="page">
-        <section class="banner" aria-label="About banner">
-          <h1>Matt Hermano</h1>
+        <section class="hero gallery-hero">
+          <div>
+            <h1>Gallery</h1>
+          </div>
+          <p class="hero-meta gallery-subheading">Live shows</p>
         </section>
 
-        <div class="bio">
-          <p>
-            I am a Vancouver-based singer-songwriter writing intimate songs about longing, quiet courage, and the small moments that stay with us.
-          </p>
-          <p>
-            Most nights you can find me in cafes and open mics around the city, refining songs in front of rooms that reward attention and honesty.
-          </p>
-          <p>
-            My sets are designed to feel conversational: minimal production, lyrical focus, and a strong connection with the audience.
-          </p>
-        </div>
+        <section class="gallery" data-gallery tabindex="0" aria-label="Gallery carousel">
+          <div class="gallery-viewport" data-gallery-viewport></div>
+          <div class="gallery-controls">
+            <button class="gallery-arrow" type="button" data-gallery-prev aria-label="Previous photo">←</button>
+            <p class="gallery-counter" data-gallery-counter>1 / 1</p>
+            <button class="gallery-arrow" type="button" data-gallery-next aria-label="Next photo">→</button>
+          </div>
+        </section>
       </main>
     </div>
 

@@ -1,6 +1,6 @@
 import "./style.css";
+import { initializeGallery } from "./components/gallery";
 import { markActiveNav } from "./components/nav";
-import { initializeDecorativePlayer } from "./components/player";
 import { renderTrackRows } from "./components/tracks";
 
 const bookingForm = document.querySelector<HTMLFormElement>(".booking-form");
@@ -21,5 +21,5 @@ if (bookingForm) {
 }
 
 renderTrackRows("#tracks");
-initializeDecorativePlayer();
+initializeGallery();
 markActiveNav();
