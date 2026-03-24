@@ -71,6 +71,17 @@ export const renderTrackRows = (selector: string): void => {
           ${buildEmbed(track)}
         </div>
       </article>
+      <article class="track-row" data-target="#embed-${track.id}">
+        <span class="track-number">${String(index + 1).padStart(2, "0")}</span>
+        <button class="track-play" aria-label="Toggle ${track.title} embed" aria-expanded="false"></button>
+        <h3 class="track-title">${track.title}</h3>
+        <div class="wave" aria-hidden="true">${waveBars}</div>
+        <span class="duration">${track.duration}</span>
+        <a class="share-link" href="/track/${track.id}/${track.slug}">Share</a>
+      </article>
+      <div class="embed-wrap" id="embed-${track.id}" hidden>
+        <iframe title="${track.title} audio embed" loading="lazy" src="${track.embedUrl}"></iframe>
+      </div>
     `
     )
     .join("");
