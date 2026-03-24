@@ -1,5 +1,11 @@
 :root {
   color-scheme: dark;
+  --bg: #0e0f10;
+  --panel: #17191b;
+  --text: #f4f4f4;
+  --muted: #b5b8bb;
+  --border: #2b2f33;
+  --accent: #7fa8ff;
   --bg: #0f0f0c;
   --surface: #1a1a17;
   --text: #e8e4d8;
@@ -16,6 +22,312 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-shell {
+  margin: 0 40px 48px;
+}
+
+.top-nav {
+  align-items: center;
+  border-bottom: 0.5px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  min-height: 70px;
+}
+
+.brand {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.65rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 9px;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.hero {
+  border-bottom: 0.5px solid var(--border);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 3rem 0;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.7rem, 6vw, 56px);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.quote {
+  border-left: 0.5px solid var(--border);
+  color: var(--muted);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 1.25rem 0 0;
+  max-width: 34ch;
+  padding-left: 1rem;
+}
+
+.hero-meta {
+  align-self: end;
+  color: var(--muted);
+  justify-self: end;
+  max-width: 33ch;
+  text-align: right;
+}
+
+.section {
+  padding: 1.6rem 0;
+}
+
+.section-header {
+  align-items: center;
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.section-header span {
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section-header div {
+  border-bottom: 0.5px solid var(--border);
+  flex: 1;
+}
+
+.track-list {
+  display: grid;
+}
+
+.track-row {
+  border-bottom: 0.5px solid var(--border);
+  display: grid;
+  grid-template-columns: 36px 30px 1fr 45px auto 40px;
+  align-items: center;
+  column-gap: 0.9rem;
+  padding: 0.9rem 0;
+}
+
+.track-number,
+.duration,
+.current-time {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.track-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 0.45rem;
+}
+
+.play-button {
+  background: transparent;
+  border: 0.5px solid var(--accent);
+  border-radius: 999px;
+  cursor: pointer;
+  height: 24px;
+  padding: 0;
+  position: relative;
+  width: 24px;
+}
+
+.play-button::before {
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--accent);
+  border-top: 5px solid transparent;
+  content: "";
+  left: 8px;
+  position: absolute;
+  top: 6px;
+}
+
+.play-button.is-playing::before {
+  background: var(--accent);
+  border: 0;
+  height: 10px;
+  left: 7px;
+  top: 6px;
+  width: 10px;
+}
+
+.waveform {
+  align-items: end;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(12, 1fr);
+  height: 16px;
+  position: relative;
+}
+
+.waveform > span {
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.wave-progress {
+  background: color-mix(in srgb, var(--accent) 78%, #000);
+  inset: 0 auto 0 0;
+  opacity: 0.9;
+  position: absolute;
+  width: 0;
+}
+
+.ghost-link {
+  border: 0.5px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.bottom-grid {
+  border-top: 0.5px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1rem;
+}
+
+.bottom-cell {
+  min-height: 180px;
+  padding: 1.2rem 0;
+}
+
+.bottom-cell + .bottom-cell {
+  border-left: 0.5px solid var(--border);
+  padding-left: 1.2rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.cta {
+  border: 0.5px solid var(--accent);
+  color: var(--text);
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  margin-top: 1rem;
+  padding: 0.6rem 0.9rem;
+  text-transform: uppercase;
+}
+
+.page-copy {
+  border-top: 0.5px solid var(--border);
+  max-width: 70ch;
+  padding-top: 1.3rem;
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.8rem;
+}
+
+.gallery-item {
+  border: 0.5px solid var(--border);
+  margin: 0;
+  min-height: 180px;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.booking-form {
+  border-top: 0.5px solid var(--border);
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  max-width: 560px;
+  padding-top: 1rem;
+}
+
+.booking-form label {
+  color: var(--muted);
+  display: grid;
+  gap: 0.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  padding: 0.6rem;
+}
+
+.booking-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.booking-form button {
+  background: transparent;
+  border: 0.5px solid var(--accent);
+  color: var(--text);
+  font: inherit;
+  letter-spacing: 0.1em;
+  padding: 0.6rem 0.9rem;
+  text-transform: uppercase;
+  width: fit-content;
+}
   font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 11px;
   line-height: 1.7;
