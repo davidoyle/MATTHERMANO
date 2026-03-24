@@ -4,7 +4,11 @@ export const markActiveNav = (): void => {
 
   links.forEach((link) => {
     const href = link.getAttribute("href") ?? "";
-    const isActive = path === href || (href === "/" && path === "/index.html");
-    link.classList.toggle("active", isActive);
+
+    const isMusicRoute = href === "/" && (path === "/" || path === "/index.html" || path.startsWith("/track/"));
+    const isAboutRoute = href === "/about/" && (path === "/about" || path === "/about/");
+    const isBookRoute = href === "/book/" && (path === "/book" || path === "/book/");
+
+    link.classList.toggle("active", isMusicRoute || isAboutRoute || isBookRoute);
   });
 };
