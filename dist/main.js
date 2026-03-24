@@ -24,6 +24,36 @@ const toClock = (seconds) => {
     const mins = Math.floor(seconds / 60)
         .toString()
         .padStart(1, "0");
+const galleryImages = [
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ==.webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (1).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (2).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (3).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (4).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (5).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (6).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (7).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (8).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (9).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (10).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (11).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (12).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (13).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (14).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (15).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (16).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (17).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (18).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (19).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (20).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (21).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (22).webp",
+    "meta_eyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ== (23).webp",
+    "meta_aeyJzcmNCdWNrZXQiOiJiemdsZmlsZXMifQ==.webp",
+];
+const activeTimers = new Map();
+const toClock = (seconds) => {
+    const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60)
         .toString()
         .padStart(2, "0");
@@ -38,6 +68,30 @@ const startPlayer = (index, progressBar, currentTimeNode, button, totalDuration)
         return;
     }
     button.textContent = "Pause";
+const sectionLabel = (label) => `
+  <header class="section-header">
+    <span>${label}</span>
+    <div aria-hidden="true"></div>
+  </header>
+`;
+const stopTrack = (index, button) => {
+    const timer = activeTimers.get(index);
+    if (!timer) {
+        return;
+    }
+    window.clearInterval(timer);
+    activeTimers.delete(index);
+    button.classList.remove("is-playing");
+    button.setAttribute("aria-label", "Play preview");
+};
+const startPlayer = (index, progressBar, currentTimeNode, button, totalDuration) => {
+    const previousTimer = activeTimers.get(index);
+    if (previousTimer) {
+        stopTrack(index, button);
+        return;
+    }
+    button.classList.add("is-playing");
+    button.setAttribute("aria-label", "Pause preview");
     let elapsed = Number(progressBar.dataset.elapsed ?? 0);
     const timer = window.setInterval(() => {
         elapsed += 1;
@@ -49,6 +103,8 @@ const startPlayer = (index, progressBar, currentTimeNode, button, totalDuration)
             window.clearInterval(timer);
             activeTimers.delete(index);
             button.textContent = "Play";
+            button.classList.remove("is-playing");
+            button.setAttribute("aria-label", "Play preview");
         }
     }, 1000);
     activeTimers.set(index, timer);
@@ -77,6 +133,40 @@ if (trackList) {
         const button = card.querySelector("button");
         const progressBar = card.querySelector(".progress > span");
         const currentTimeNode = card.querySelector(".current-time");
+const initializeTracks = () => {
+    const trackList = document.querySelector("#tracks");
+    if (!trackList) {
+        return;
+    }
+    trackList.innerHTML = sectionLabel("Music") + '<div class="track-list"></div>';
+    const trackRows = trackList.querySelector(".track-list");
+    if (!trackRows) {
+        return;
+    }
+    tracks.forEach((track, index) => {
+        const row = document.createElement("article");
+        row.className = "track-row";
+        const headingId = `track-${index}-title`;
+        row.innerHTML = `
+      <span class="track-number">${String(index + 1).padStart(2, "0")}</span>
+      <button type="button" class="play-button" aria-label="Play preview"></button>
+      <div class="track-body" aria-labelledby="${headingId}">
+        <h3 id="${headingId}">${track.title}</h3>
+        <div class="waveform" aria-hidden="true">
+          <span style="height: 25%"></span><span style="height: 50%"></span><span style="height: 35%"></span>
+          <span style="height: 70%"></span><span style="height: 40%"></span><span style="height: 90%"></span>
+          <span style="height: 50%"></span><span style="height: 80%"></span><span style="height: 60%"></span>
+          <span style="height: 30%"></span><span style="height: 75%"></span><span style="height: 45%"></span>
+          <span class="wave-progress"></span>
+        </div>
+      </div>
+      <span class="duration">${track.durationLabel}</span>
+      <a class="ghost-link" href="${track.link}" target="_blank" rel="noreferrer">Share</a>
+      <span class="current-time" aria-live="polite">0:00</span>
+    `;
+        const button = row.querySelector(".play-button");
+        const progressBar = row.querySelector(".wave-progress");
+        const currentTimeNode = row.querySelector(".current-time");
         if (button && progressBar && currentTimeNode) {
             button.addEventListener("click", () => {
                 startPlayer(index, progressBar, currentTimeNode, button, track.durationSeconds);
@@ -85,3 +175,54 @@ if (trackList) {
         trackList.append(card);
     });
 }
+        trackRows.append(row);
+    });
+};
+const initializeGallery = () => {
+    const galleryNode = document.querySelector("#gallery-grid");
+    if (!galleryNode) {
+        return;
+    }
+    galleryImages.forEach((image, index) => {
+        const figure = document.createElement("figure");
+        figure.className = "gallery-item";
+        const img = document.createElement("img");
+        img.src = `./${encodeURIComponent(image).replace(/%2F/g, "/")}`;
+        img.alt = `Matt Hermano gallery photo ${index + 1}`;
+        img.loading = "lazy";
+        figure.append(img);
+        galleryNode.append(figure);
+    });
+};
+const initializeBookingForm = () => {
+    const bookingForm = document.querySelector(".booking-form");
+    if (!bookingForm) {
+        return;
+    }
+    bookingForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        bookingForm.reset();
+        let confirmation = bookingForm.nextElementSibling;
+        if (!confirmation || !confirmation.classList.contains("form-confirmation")) {
+            confirmation = document.createElement("p");
+            confirmation.className = "form-confirmation";
+            bookingForm.insertAdjacentElement("afterend", confirmation);
+        }
+        confirmation.textContent = "Thanks — your booking inquiry has been received. I will reply soon.";
+    });
+};
+const initializeMobileMenu = () => {
+    const menuButton = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    if (!menuButton || !navLinks) {
+        return;
+    }
+    menuButton.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("is-open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+};
+initializeTracks();
+initializeGallery();
+initializeMobileMenu();
+initializeBookingForm();
