@@ -10,9 +10,12 @@ export const initializeDecorativePlayer = (): void => {
     }
 
     button.addEventListener("click", () => {
-      row.classList.toggle("active");
+      const willBeActive = !row.classList.contains("active");
+      row.classList.toggle("active", willBeActive);
+      button.setAttribute("aria-expanded", String(willBeActive));
+
       if (embed) {
-        embed.classList.toggle("active-embed");
+        embed.hidden = !willBeActive;
       }
     });
   });
