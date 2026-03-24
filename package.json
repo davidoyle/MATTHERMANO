@@ -1,0 +1,9 @@
+{
+  "name": "matthermano-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  }
+}
