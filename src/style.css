@@ -165,7 +165,7 @@ a {
 }
 
 .track-embed.spotify iframe {
-  height: 80px;
+  height: 152px;
 }
 
 .track-embed.fallback iframe {
@@ -286,8 +286,9 @@ a {
 
 .gallery-viewport {
   position: relative;
-  aspect-ratio: 16 / 9;
+  height: clamp(360px, 72vh, 900px);
   overflow: hidden;
+  background: #090908;
 }
 
 .gallery-slide {
@@ -305,7 +306,8 @@ a {
 .gallery-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .gallery-controls {
