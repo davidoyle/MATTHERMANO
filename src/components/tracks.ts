@@ -20,7 +20,7 @@ export const tracks: Track[] = [
     slug: "one-night-love",
     title: "One Night Love",
     duration: "3:01",
-    fallbackEmbedUrl: "https://heymhmusic.com/embed/track/3657550/one-night-love"
+    fallbackEmbedUrl: "https://heymhmusic.com/embed/single/89428/one-night-love"
   },
   {
     routeId: "3920363",

@@ -189,6 +189,31 @@ a {
   padding-left: 1.2rem;
 }
 
+.video-label {
+  margin: 0 0 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.video-embed {
+  margin-top: 0;
+  padding: 0;
+  aspect-ratio: 16 / 9;
+}
+
+.video-embed iframe {
+  height: 100%;
+}
+
 .page {
   padding: 2rem 0 3rem;
 }
@@ -373,5 +398,9 @@ a {
 
   .share-link {
     font-size: 0.6rem;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
   }
 }
