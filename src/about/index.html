@@ -4,49 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About — Matt Hermano</title>
-    <meta name="description" content="About Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@400;600&family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <svg class="corner-cut corner-tl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
+      <svg class="corner-cut corner-tr" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group">
+          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button>
+          <nav aria-label="Main navigation">
+            <ul class="nav-links">
+              <li><a href="/">Music</a></li><li><a href="/about/">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/video/">Video</a></li><li><a class="book-link" href="/book/">Book</a></li><li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <main class="page">
-        <section class="banner" aria-label="About banner">
-          <h1>Matt Hermano</h1>
+        <h1 class="track-page-title">About</h1>
+
+        <div class="about-copy">
+          <img class="about-photo-inline about-photo-right" src="/assets/gallery/matt-live-12.webp" alt="Matt Hermano performing live" loading="lazy" />
+          <p>I am a Vancouver-based singer-songwriter writing intimate songs about longing, quiet courage, and the small moments that stay with us.</p>
+          <p>Most nights you can find me in cafes and open mics around the city, refining songs in front of rooms that reward attention and honesty.</p>
+          <p>My sets are designed to feel conversational: minimal production, lyrical focus, and a strong connection with the audience.</p>
+        </div>
+
+        <section class="about-journey">
+          <h2 class="section-title">My Music Journey</h2>
+          <img class="about-photo-inline about-photo-left" src="/assets/gallery/matt-live-18.webp" alt="Matt Hermano on stage under warm lights" loading="lazy" />
+          <p>
+            My music journey started at the age of 13 when my dad gifted me my very first guitar. Starting off I was very interested in flamenco/ Latin music. Over time I would get into other genre and develop a love and respect for all music types. By the age of 16 I started to compose and write songs. My first ever performance was for a multi-cultural day in high school. From there, it sparked the fire of wanting to perform in front of people. From the ages of 18 - 21 I would enter in battle of the bands and Christian song writing competitions. At 22 I took vocal lessons, learning how to sing properly. At the age of 24 I had given up music and my dreams for the person I loved, thinking it was the right thing to do. By the age of 28 the relationship ended which then I returned back to music as therapy. By 29 I represented Canada in a World Competition of Performing Arts in the categories of songwriting, pop and R&amp;B, winning 3 silvers for Canada. After the competition I didn't pursue music as a career because I felt as if I was not good enough and also had trauma from the previous relationship about my dreams of becoming a singer songwriter and performer. Fast forward to 36. I found a relationship where my partner pushes me to perform, write songs, and pursue the dream of becoming a full time songwriter and performer!
+          </p>
         </section>
 
-        <div class="bio">
-          <p>
-            I am a Vancouver-based singer-songwriter writing intimate songs about longing, quiet courage, and the small moments that stay with us.
-          </p>
-          <p>
-            Most nights you can find me in cafes and open mics around the city, refining songs in front of rooms that reward attention and honesty.
-          </p>
-          <p>
-            My sets are designed to feel conversational: minimal production, lyrical focus, and a strong connection with the audience.
-          </p>
-        </div>
+        <section class="booking-strip">
+          <p>Matt Hermano is available for bookings.</p>
+          <a class="cta-button" href="/book/">Book a show</a>
+        </section>
       </main>
     </div>
-
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

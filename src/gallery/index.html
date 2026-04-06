@@ -4,49 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gallery — Matt Hermano</title>
-    <meta name="description" content="Live show gallery for Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@400;600&family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <svg class="corner-cut corner-tl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
+      <svg class="corner-cut corner-tr" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group"><button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button><nav aria-label="Main navigation"><ul class="nav-links"><li><a href="/">Music</a></li><li><a href="/about/">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/video/">Video</a></li><li><a class="book-link" href="/book/">Book</a></li><li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li></ul></nav></div>
       </header>
-
       <main class="page">
-        <section class="hero gallery-hero">
-          <div>
-            <h1>Gallery</h1>
-          </div>
-          <p class="hero-meta gallery-subheading">Live shows</p>
-        </section>
-
+        <h1 class="track-page-title">Gallery</h1>
         <section class="gallery" data-gallery tabindex="0" aria-label="Gallery carousel">
           <div class="gallery-viewport" data-gallery-viewport></div>
           <div class="gallery-controls">
             <button class="gallery-arrow" type="button" data-gallery-prev aria-label="Previous photo">←</button>
-            <p class="gallery-counter" data-gallery-counter>1 / 1</p>
             <button class="gallery-arrow" type="button" data-gallery-next aria-label="Next photo">→</button>
           </div>
+          <div class="gallery-thumbs" data-gallery-thumbs></div>
         </section>
       </main>
     </div>
-
     <script type="module" src="/main.ts"></script>
   </body>
 </html>
