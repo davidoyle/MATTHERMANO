@@ -208,10 +208,19 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
 .vinyl-label { fill: var(--color-highlight); }
 .vinyl-rings circle { fill: none; stroke: rgba(243, 234, 210, 0.25); }
 
-.about-copy, .about-journey { max-width: 75ch; }
+.about-copy, .about-journey { max-width: 78ch; }
+.about-copy::after, .about-journey::after { content: ""; display: block; clear: both; }
 .about-journey { margin-top: 1.5rem; }
-.about-photos { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-.about-photos img { width: 100%; height: 320px; object-fit: cover; border: 1px solid var(--color-border); }
+.about-photo-inline {
+  width: min(42%, 320px);
+  height: auto;
+  border: 1px solid var(--color-border);
+  background: #11080b;
+  padding: 0.25rem;
+  object-fit: contain;
+}
+.about-photo-right { float: right; margin: 0.2rem 0 0.8rem 1rem; }
+.about-photo-left { float: left; margin: 0.3rem 1rem 0.8rem 0; }
 
 /* 9. Utilities */
 .cta-button, .book-link {
@@ -268,8 +277,7 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
   .track-row { grid-template-columns: 2.2rem 1fr auto; }
   .duration { display: none; }
   .booking-strip { flex-direction: column; align-items: flex-start; }
-  .about-photos { grid-template-columns: 1fr; }
-  .about-photos img { height: 240px; }
+    .about-photo-inline { float: none; width: 100%; margin: 0 0 1rem; }
 }
 
 @keyframes fadeup {
