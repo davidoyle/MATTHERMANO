@@ -14,8 +14,7 @@ export default defineConfig({
         gallery: resolve(__dirname, "src/gallery/index.html"),
         video: resolve(__dirname, "src/video/index.html"),
         track1: resolve(__dirname, "src/track/3547680/lost-in-your-eyes.html"),
-        track2: resolve(__dirname, "src/track/3657550/one-night-love.html"),
-        track3: resolve(__dirname, "src/track/3920363/ghost-me.html")
+        track2: resolve(__dirname, "src/track/3920363/ghost-me.html")
       }
     }
   }

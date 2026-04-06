@@ -16,13 +16,6 @@ export const tracks: Track[] = [
     duration: "3:33"
   },
   {
-    routeId: "3657550",
-    slug: "one-night-love",
-    title: "One Night Love",
-    duration: "3:01",
-    fallbackEmbedUrl: "https://heymhmusic.com/embed/single/89428/one-night-love"
-  },
-  {
     routeId: "3920363",
     spotifyId: "0ldl4VDhEEukukchrnVDhI",
     slug: "ghost-me",
