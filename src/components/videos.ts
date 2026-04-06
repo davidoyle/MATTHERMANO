@@ -17,7 +17,6 @@ export const renderVideoGrid = (selector: string): void => {
             loading="lazy"
           ></iframe>
         </div>
-        <p class="video-title">${video.title}</p>
       </article>
       `
     )

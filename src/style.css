@@ -111,9 +111,6 @@ h1 { margin: 0; font-size: var(--type-xl); font-weight: 500; }
 .meta,
 .duration,
 .track-number,
-.video-title,
-.gallery-counter,
-.gallery-caption,
 .booking-form label {
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -168,7 +165,6 @@ h1 { margin: 0; font-size: var(--type-xl); font-weight: 500; }
 .gallery-slide img { width: 100%; height: 100%; object-fit: contain; }
 .gallery-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; }
 .gallery-arrow { border: 1px solid var(--color-border); background: transparent; color: var(--color-text-primary); width: 2.5rem; height: 2.5rem; cursor: pointer; }
-.gallery-caption { margin: 0.5rem 0 0; color: var(--color-text-secondary); }
 .gallery-thumbs { margin-top: 0.75rem; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.45rem; overflow-x: auto; }
 .gallery-thumb { border: 1px solid var(--color-border); padding: 0; background: transparent; cursor: pointer; }
 .gallery-thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
@@ -201,7 +197,30 @@ h1 { margin: 0; font-size: var(--type-xl); font-weight: 500; }
 .video-card { border: 1px solid var(--color-border); background: var(--color-surface); padding: 0.65rem; }
 .video-embed { aspect-ratio: 16 / 9; }
 .video-embed iframe { width: 100%; height: 100%; border: 0; }
-.video-title { margin: 0.45rem 0 0; color: var(--color-text-secondary); font-size: var(--type-sm); }
+
+
+.about-copy,
+.about-journey {
+  max-width: 75ch;
+}
+
+.about-journey {
+  margin-top: 1.5rem;
+}
+
+.about-photos {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.about-photos img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
 
 /* 9. Utilities */
 .cta-button, .book-link {
@@ -258,6 +277,8 @@ h1 { margin: 0; font-size: var(--type-xl); font-weight: 500; }
   .track-row { grid-template-columns: 2.2rem 1fr auto; }
   .duration { display: none; }
   .booking-strip { flex-direction: column; align-items: flex-start; }
+  .about-photos { grid-template-columns: 1fr; }
+  .about-photos img { height: 240px; }
 }
 
 @keyframes fadeup {
