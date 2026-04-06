@@ -7,11 +7,13 @@
     <meta name="description" content="Matt Hermano official music site." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@400;600&family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
+      <svg class="corner-cut corner-tl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
+      <svg class="corner-cut corner-tr" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
       <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
         <div class="nav-group">
@@ -31,7 +33,23 @@
 
       <main>
         <section class="hero">
-          <div>
+          <div class="hero-inner">
+            <svg class="vinyl-motif vinyl-spin" viewBox="0 0 300 300" aria-hidden="true">
+              <defs>
+                <path id="labelCircle" d="M150,150 m-108,0 a108,108 0 1,1 216,0 a108,108 0 1,1 -216,0" />
+              </defs>
+              <g class="vinyl-rings">
+                <circle cx="150" cy="150" r="132" />
+                <circle cx="150" cy="150" r="116" />
+                <circle cx="150" cy="150" r="100" />
+                <circle cx="150" cy="150" r="82" />
+              </g>
+              <circle class="vinyl-label" cx="150" cy="150" r="58" />
+              <circle cx="150" cy="150" r="10" fill="#1b0b0f" />
+              <text>
+                <textPath href="#labelCircle" startOffset="0%">MATT HERMANO • SOUL / FUNK • SIDE A •</textPath>
+              </text>
+            </svg>
             <h1>MATT HERMANO</h1>
             <p class="hero-tagline">Warm vocals, late-night soul, and stories that stay.</p>
             <p><a class="cta-button" href="#tracks">Listen</a></p>
