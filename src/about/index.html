@@ -4,49 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About — Matt Hermano</title>
-    <meta name="description" content="About Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group">
+          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button>
+          <nav aria-label="Main navigation">
+            <ul class="nav-links">
+              <li><a href="/">Music</a></li><li><a href="/about/">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/video/">Video</a></li><li><a class="book-link" href="/book/">Book</a></li><li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <main class="page">
-        <section class="banner" aria-label="About banner">
-          <h1>Matt Hermano</h1>
-        </section>
-
-        <div class="bio">
-          <p>
-            I am a Vancouver-based singer-songwriter writing intimate songs about longing, quiet courage, and the small moments that stay with us.
-          </p>
-          <p>
-            Most nights you can find me in cafes and open mics around the city, refining songs in front of rooms that reward attention and honesty.
-          </p>
-          <p>
-            My sets are designed to feel conversational: minimal production, lyrical focus, and a strong connection with the audience.
-          </p>
+        <h1 class="track-page-title">About</h1>
+        <div style="max-width: 65ch">
+          <p>Matt Hermano is an R&B/soul songwriter blending warm melodies with stripped-back honesty.</p>
+          <p>His live sets are intimate and cinematic, built for rooms that reward attention and feeling.</p>
+          <blockquote style="border-left: 2px solid var(--color-accent); margin: 1.5rem 0; padding-left: 1rem; color: var(--color-accent); font-size: var(--type-md)">
+            “I write for that moment when a room goes quiet and everyone is suddenly in the same song.”
+          </blockquote>
         </div>
+
+        <section class="booking-strip">
+          <p>Matt Hermano is available for bookings.</p>
+          <a class="cta-button" href="/book/">Book a show</a>
+        </section>
       </main>
     </div>
-
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

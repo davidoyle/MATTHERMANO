@@ -13,8 +13,8 @@ export default defineConfig({
         book: resolve(__dirname, "src/book/index.html"),
         gallery: resolve(__dirname, "src/gallery/index.html"),
         video: resolve(__dirname, "src/video/index.html"),
-        track1: resolve(__dirname, "src/track/3547680/lost-in-your-eyes.html"),
-        track2: resolve(__dirname, "src/track/3920363/ghost-me.html")
+        trackGhostMe: resolve(__dirname, "src/track/ghost-me/index.html"),
+        trackLostInYourEyes: resolve(__dirname, "src/track/lost-in-your-eyes/index.html")
       }
     }
   }

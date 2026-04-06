@@ -4,69 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matt Hermano — Music</title>
-    <meta name="description" content="Original songs by Vancouver singer-songwriter Matt Hermano." />
+    <meta name="description" content="Matt Hermano official music site." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group">
+          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button>
+          <nav aria-label="Main navigation">
+            <ul class="nav-links">
+              <li><a href="/">Music</a></li>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/gallery/">Gallery</a></li>
+              <li><a href="/video/">Video</a></li>
+              <li><a class="book-link" href="/book/">Book</a></li>
+              <li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <main>
         <section class="hero">
           <div>
-            <h1>Matt Hermano</h1>
-            <p class="quote">“Where I create, there I am true.” — Rainer Maria Rilke</p>
+            <h1>MATT HERMANO</h1>
+            <p class="hero-tagline">Warm vocals, late-night soul, and stories that stay.</p>
+            <p><a class="cta-button" href="#tracks">Listen</a></p>
           </div>
-          <p class="hero-meta">
-            Vancouver, British Columbia.<br />
-            Original songs and intimate live performances for coffeehouses, listening rooms, and private events.
-          </p>
         </section>
 
-        <section class="music-section">
+        <section class="music-section" id="tracks">
           <h2 class="section-title">Music</h2>
-          <div id="tracks" class="track-list"></div>
+          <div class="track-list"></div>
         </section>
 
-        <section class="bottom-strip" id="video" aria-label="Video and booking">
-          <article class="bottom-cell">
-            <h2 class="section-title">Video</h2>
-            <p class="video-label">Who I Am</p>
+        <section class="page">
+          <h2 class="section-title">Watch</h2>
+          <div class="video-card" style="max-width: 800px; margin: 0 auto">
             <div class="embed-wrap video-embed">
               <iframe
                 src="https://www.youtube.com/embed/BK00ifR-EKE?start=1"
-                title="Who I Am video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                title="Who I Am"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
                 loading="lazy"
               ></iframe>
             </div>
-            <p>
-              <a class="video-page-link" href="/video/">Watch more videos →</a>
-            </p>
-          </article>
-          <article class="bottom-cell">
-            <h2 class="section-title">Booking</h2>
-            <p>Now booking acoustic sets, house concerts, and songwriter rounds.</p>
-            <a href="/book/">Submit booking inquiry →</a>
-          </article>
+          </div>
+        </section>
+
+        <section class="booking-strip">
+          <p>Matt Hermano is available for bookings.</p>
+          <a class="cta-button" href="/book/">Book a show</a>
         </section>
       </main>
     </div>

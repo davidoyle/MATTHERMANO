@@ -4,47 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video — Matt Hermano</title>
-    <meta name="description" content="Live and studio videos by Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group"><button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button><nav aria-label="Main navigation"><ul class="nav-links"><li><a href="/">Music</a></li><li><a href="/about/">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/video/">Video</a></li><li><a class="book-link" href="/book/">Book</a></li><li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li></ul></nav></div>
       </header>
-
       <main class="page">
-        <h1 class="section-title">Video</h1>
-        <div class="video-grid" aria-label="Matt Hermano videos">
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/gpOq1hdZJ6c" title="Video gpOq1hdZJ6c" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/KwGidTiQ4K8" title="Video KwGidTiQ4K8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/BQ_VmxkvsDA" title="Video BQ_VmxkvsDA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/dDRbSqwH6FQ" title="Video dDRbSqwH6FQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/ZOnkXGnhoG8" title="Video ZOnkXGnhoG8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/WtYUpsrYhk0" title="Video WtYUpsrYhk0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/XMwrqn1HvYM" title="Video XMwrqn1HvYM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/zP4MzKu0PgA" title="Video zP4MzKu0PgA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/YKsPn_j0HNs" title="Video YKsPn_j0HNs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-          <div class="embed-wrap video-embed"><iframe src="https://www.youtube.com/embed/KRCVbN71pVE" title="Video KRCVbN71pVE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>
-        </div>
+        <h1 class="track-page-title">Video</h1>
+        <div class="video-grid" id="video-grid" aria-label="Matt Hermano videos"></div>
       </main>
     </div>
-
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

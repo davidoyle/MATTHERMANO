@@ -1,98 +1,71 @@
-const imageModules = import.meta.glob("../../*.webp", { eager: true, import: "default" }) as Record<string, string>;
+import { captions } from "../data/gallery";
 
-const orderedImageUrls = Object.entries(imageModules)
-  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
-  .map(([, url]) => url);
+const imageModules = import.meta.glob("../assets/gallery/*.webp", { eager: true, import: "default" }) as Record<string, string>;
+
+const orderedImages = Object.entries(imageModules)
+  .map(([key, url]) => ({ key, url }))
+  .sort((a, b) => a.key.localeCompare(b.key, undefined, { numeric: true, sensitivity: "base" }));
+
+const slugToCaption = (slug: string): string => captions[slug] ?? slug.replace(/-/g, " ");
 
 export const initializeGallery = (): void => {
   const root = document.querySelector<HTMLElement>("[data-gallery]");
-  if (!root) {
-    return;
-  }
+  if (!root) return;
 
   const viewport = root.querySelector<HTMLElement>("[data-gallery-viewport]");
   const counter = root.querySelector<HTMLElement>("[data-gallery-counter]");
   const prevButton = root.querySelector<HTMLButtonElement>("[data-gallery-prev]");
   const nextButton = root.querySelector<HTMLButtonElement>("[data-gallery-next]");
+  const thumbs = root.querySelector<HTMLElement>("[data-gallery-thumbs]");
+  const caption = root.querySelector<HTMLElement>("[data-gallery-caption]");
 
-  if (!viewport || !counter || !prevButton || !nextButton || orderedImageUrls.length === 0) {
-    return;
-  }
+  if (!viewport || !counter || !prevButton || !nextButton || !thumbs || !caption || orderedImages.length === 0) return;
 
-  viewport.innerHTML = orderedImageUrls
+  const slides = orderedImages.map((entry, index) => {
+    const slug = entry.key.split("/").pop()?.replace(".webp", "") ?? `photo-${index + 1}`;
+    return { ...entry, slug, alt: slugToCaption(slug) };
+  });
+
+  viewport.innerHTML = slides
     .map(
-      (url, index) =>
-        `<figure class="gallery-slide${index === 0 ? " is-active" : ""}" data-slide-index="${index}">
-          <img src="${url}" alt="Matt Hermano live show photo ${index + 1}" loading="lazy" />
+      (slide, index) =>
+        `<figure class="gallery-slide${index === 0 ? " is-active" : ""}" data-slide-index="${index}" role="img" aria-label="${slide.alt}">
+          <img src="${slide.url}" alt="${slide.alt}" loading="lazy" />
         </figure>`
     )
     .join("");
 
-  const slides = Array.from(viewport.querySelectorAll<HTMLElement>(".gallery-slide"));
+  thumbs.innerHTML = slides
+    .map(
+      (slide, index) =>
+        `<button type="button" class="gallery-thumb${index === 0 ? " is-active" : ""}" data-thumb-index="${index}" aria-label="View ${slide.alt}">
+          <img src="${slide.url}" alt="" loading="lazy" />
+        </button>`
+    )
+    .join("");
+
+  const slideElements = Array.from(viewport.querySelectorAll<HTMLElement>(".gallery-slide"));
+  const thumbButtons = Array.from(thumbs.querySelectorAll<HTMLButtonElement>(".gallery-thumb"));
   let currentIndex = 0;
 
-  const clampIndex = (value: number): number => {
-    if (value < 0) {
-      return slides.length - 1;
-    }
-    if (value >= slides.length) {
-      return 0;
-    }
-    return value;
-  };
-
   const setSlide = (value: number): void => {
-    currentIndex = clampIndex(value);
-
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("is-active", index === currentIndex);
-    });
-
-    counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+    currentIndex = (value + slideElements.length) % slideElements.length;
+    slideElements.forEach((slide, index) => slide.classList.toggle("is-active", index === currentIndex));
+    thumbButtons.forEach((thumb, index) => thumb.classList.toggle("is-active", index === currentIndex));
+    counter.textContent = `${currentIndex + 1} / ${slideElements.length}`;
+    caption.textContent = slides[currentIndex]?.alt ?? "";
   };
 
   prevButton.addEventListener("click", () => setSlide(currentIndex - 1));
   nextButton.addEventListener("click", () => setSlide(currentIndex + 1));
-
-  root.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      setSlide(currentIndex - 1);
-    }
-
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      setSlide(currentIndex + 1);
-    }
+  thumbButtons.forEach((thumb) => {
+    thumb.addEventListener("click", () => setSlide(Number(thumb.dataset.thumbIndex ?? 0)));
   });
 
-  let touchStartX = 0;
-  viewport.addEventListener(
-    "touchstart",
-    (event) => {
-      touchStartX = event.changedTouches[0]?.clientX ?? 0;
-    },
-    { passive: true }
-  );
-
-  viewport.addEventListener(
-    "touchend",
-    (event) => {
-      const touchEndX = event.changedTouches[0]?.clientX ?? 0;
-      const delta = touchEndX - touchStartX;
-
-      if (Math.abs(delta) < 40) {
-        return;
-      }
-
-      if (delta > 0) {
-        setSlide(currentIndex - 1);
-      } else {
-        setSlide(currentIndex + 1);
-      }
-    },
-    { passive: true }
-  );
+  root.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") setSlide(currentIndex - 1);
+    if (event.key === "ArrowRight") setSlide(currentIndex + 1);
+  });
 
   setSlide(0);
 };

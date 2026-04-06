@@ -4,63 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book — Matt Hermano</title>
-    <meta name="description" content="Booking form for Matt Hermano." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="top-nav">
+      <header class="top-nav" data-nav>
         <a class="brand" href="/">Matt Hermano</a>
-        <nav aria-label="Main navigation">
-          <ul class="nav-links">
-            <li><a href="/">Music</a></li>
-            <li><a href="/video/">Video</a></li>
-            <li><a href="/gallery/">Gallery</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/book/">Book</a></li>
-          </ul>
-        </nav>
+        <div class="nav-group"><button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button><nav aria-label="Main navigation"><ul class="nav-links"><li><a href="/">Music</a></li><li><a href="/about/">About</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/video/">Video</a></li><li><a class="book-link" href="/book/">Book</a></li><li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li></ul></nav></div>
       </header>
-
       <main class="page">
-        <h1 class="section-title">Booking</h1>
+        <h1 class="track-page-title">Book</h1>
         <form class="booking-form" action="https://formspree.io/f/xeepnjjr" method="POST">
-          <label>
-            Name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Event type
-            <select name="eventType" required>
-              <option value="">Select one</option>
-              <option value="house-concert">House concert</option>
-              <option value="venue">Venue set</option>
-              <option value="private">Private event</option>
-            </select>
-          </label>
-          <label>
-            Date
-            <input type="date" name="eventDate" />
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows="5" required></textarea>
-          </label>
+          <label for="name">Name<input id="name" type="text" name="name" required /></label>
+          <label for="email">Email<input id="email" type="email" name="email" required /></label>
+          <label for="eventType">Event type<select id="eventType" name="eventType" required><option value="">Select one</option><option value="house-concert">House concert</option><option value="venue">Venue set</option><option value="private">Private event</option></select></label>
+          <label for="eventDate">Date<input id="eventDate" type="date" name="eventDate" /></label>
+          <label for="message">Message<textarea id="message" name="message" rows="5" required></textarea></label>
           <button type="submit">Send inquiry</button>
         </form>
       </main>
     </div>
-
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

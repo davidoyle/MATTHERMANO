@@ -4,7 +4,6 @@ export const markActiveNav = (): void => {
 
   links.forEach((link) => {
     const href = link.getAttribute("href") ?? "";
-
     const isMusicRoute = href === "/" && (path === "/" || path === "/index.html" || path.startsWith("/track/"));
     const isVideoRoute = href === "/video/" && (path === "/video" || path === "/video/");
     const isGalleryRoute = href === "/gallery/" && (path === "/gallery" || path === "/gallery/");
@@ -12,5 +11,17 @@ export const markActiveNav = (): void => {
     const isBookRoute = href === "/book/" && (path === "/book" || path === "/book/");
 
     link.classList.toggle("active", isMusicRoute || isVideoRoute || isGalleryRoute || isAboutRoute || isBookRoute);
+  });
+};
+
+export const initializeNavMenu = (): void => {
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  if (!nav || !toggle) return;
+
+  toggle.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    nav.classList.toggle("is-open", !expanded);
   });
 };
