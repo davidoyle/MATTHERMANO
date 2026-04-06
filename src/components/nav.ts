@@ -17,11 +17,28 @@ export const markActiveNav = (): void => {
 export const initializeNavMenu = (): void => {
   const nav = document.querySelector<HTMLElement>("[data-nav]");
   const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+  const links = document.querySelectorAll<HTMLAnchorElement>(".nav-links a");
   if (!nav || !toggle) return;
+
+  const setMenuState = (isOpen: boolean): void => {
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    nav.classList.toggle("is-open", isOpen);
+  };
 
   toggle.addEventListener("click", () => {
     const expanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!expanded));
-    nav.classList.toggle("is-open", !expanded);
+    setMenuState(!expanded);
+  });
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => setMenuState(false));
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMenuState(false);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 640) setMenuState(false);
   });
 };
