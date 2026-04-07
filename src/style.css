@@ -298,7 +298,14 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
   .gallery { padding: 0.55rem; }
   .gallery-viewport { height: clamp(260px, 52vh, 420px); }
   .gallery-thumbs { grid-template-columns: repeat(3, minmax(72px, 1fr)); }
-  .about-copy, .about-journey { max-width: 100%; }
+  .about-copy, .about-journey {
+    max-width: 100%;
+    padding: 0.85rem;
+    border: 1px solid rgba(110, 93, 61, 0.6);
+    background: rgba(53, 27, 31, 0.38);
+  }
+  .about-copy p, .about-journey p { font-size: 1.03rem; line-height: 1.65; }
+  .about-journey { margin-top: 1rem; }
   .booking-strip { flex-direction: column; align-items: flex-start; }
   .booking-strip .cta-button { width: 100%; }
   .share-buttons { flex-wrap: wrap; }
