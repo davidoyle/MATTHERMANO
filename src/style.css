@@ -193,11 +193,24 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
 }
 .form-confirmation { margin: 0; color: var(--color-accent); }
 
-/* 8. Components — video grid */
-.video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+/* 8. Components — video carousel */
+.video-carousel { border: 1px solid var(--color-border); background: var(--color-surface); padding: 0.75rem; }
+.video-carousel-viewport { position: relative; overflow: hidden; background: #12070a; }
+.video-carousel-slide { display: none; }
+.video-carousel-slide.is-active { display: block; }
 .video-card { border: 1px solid var(--color-border); background: var(--color-surface); padding: 0.65rem; }
+.video-carousel .video-card { border: 0; padding: 0; }
 .video-embed { aspect-ratio: 16 / 9; }
 .video-embed iframe { width: 100%; height: 100%; border: 0; }
+.video-carousel-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem; }
+.video-carousel-arrow { border: 1px solid var(--color-border); background: transparent; color: var(--color-text-primary); width: 2.5rem; height: 2.5rem; cursor: pointer; }
+.video-carousel-arrow:hover, .video-carousel-thumb:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.video-carousel-count { margin: 0; color: var(--color-text-secondary); font-family: system-ui, -apple-system, sans-serif; font-size: var(--type-sm); }
+.video-carousel-thumbs { margin-top: 0.75rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.45rem; overflow-x: auto; }
+.video-carousel-thumb { border: 1px solid var(--color-border); padding: 0.35rem; background: transparent; color: var(--color-text-secondary); cursor: pointer; text-align: left; }
+.video-carousel-thumb img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; margin-bottom: 0.35rem; }
+.video-carousel-thumb span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: system-ui, -apple-system, sans-serif; font-size: var(--type-xs); }
+.video-carousel-thumb.is-active { border-color: var(--color-accent); color: var(--color-accent); }
 
 .vinyl-motif {
   width: min(320px, 70vw);
@@ -248,7 +261,7 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
 
 /* 10. Responsive overrides */
 @media (max-width: 900px) {
-  .video-grid { grid-template-columns: 1fr; }
+  .video-carousel-thumbs { grid-template-columns: repeat(4, minmax(130px, 1fr)); }
   .gallery-thumbs { grid-template-columns: repeat(4, minmax(68px, 1fr)); }
 }
 @media (max-width: 640px) {
@@ -295,9 +308,10 @@ h1 { margin: 0; font-family: "Abril Fatface", serif; font-size: var(--type-xl); 
   .share-link { opacity: 1; font-size: 0.68rem; }
   .duration { display: none; }
   .embed-wrap { padding: 0.6rem; }
-  .gallery { padding: 0.55rem; }
+  .gallery, .video-carousel { padding: 0.55rem; }
   .gallery-viewport { height: clamp(260px, 52vh, 420px); }
   .gallery-thumbs { grid-template-columns: repeat(3, minmax(72px, 1fr)); }
+  .video-carousel-thumbs { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
   .about-copy, .about-journey {
     max-width: 100%;
     padding: 0.85rem;
