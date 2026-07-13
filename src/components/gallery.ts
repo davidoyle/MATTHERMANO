@@ -1,10 +1,10 @@
-const imageModules = import.meta.glob("../assets/gallery/*.webp", { eager: true, import: "default" }) as Record<string, string>;
+const imageModules = import.meta.glob("../assets/gallery/*.{jpg,webp}", { eager: true, import: "default" }) as Record<string, string>;
 
 const orderedImages = Object.entries(imageModules)
   .map(([key, url]) => ({ key, url }))
   .sort((a, b) => a.key.localeCompare(b.key, undefined, { numeric: true, sensitivity: "base" }));
 
-const slugToLabel = (slug: string): string => slug.replace(/-/g, " ");
+const slugToLabel = (slug: string): string => slug.replace(/-/g, " ").replace(/_/g, " ");
 
 export const initializeGallery = (): void => {
   const root = document.querySelector<HTMLElement>("[data-gallery]");
@@ -18,7 +18,7 @@ export const initializeGallery = (): void => {
   if (!viewport || !prevButton || !nextButton || !thumbs || orderedImages.length === 0) return;
 
   const slides = orderedImages.map((entry, index) => {
-    const slug = entry.key.split("/").pop()?.replace(".webp", "") ?? `photo-${index + 1}`;
+    const slug = entry.key.split("/").pop()?.replace(/\.(jpg|webp)$/i, "") ?? `photo-${index + 1}`;
     return { ...entry, slug, label: slugToLabel(slug) };
   });
 
