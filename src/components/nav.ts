@@ -1,44 +1,22 @@
-export const markActiveNav = (): void => {
-  const path = window.location.pathname;
-  const links = document.querySelectorAll<HTMLAnchorElement>(".nav-links a");
-
-  links.forEach((link) => {
-    const href = link.getAttribute("href") ?? "";
-    const isMusicRoute = href === "/" && (path === "/" || path === "/index.html" || path.startsWith("/track/"));
-    const isVideoRoute = href === "/video/" && (path === "/video" || path === "/video/");
-    const isGalleryRoute = href === "/gallery/" && (path === "/gallery" || path === "/gallery/");
-    const isAboutRoute = href === "/about/" && (path === "/about" || path === "/about/");
-    const isBookRoute = href === "/book/" && (path === "/book" || path === "/book/");
-
-    link.classList.toggle("active", isMusicRoute || isVideoRoute || isGalleryRoute || isAboutRoute || isBookRoute);
-  });
-};
-
 export const initializeNavMenu = (): void => {
   const nav = document.querySelector<HTMLElement>("[data-nav]");
-  const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
-  const links = document.querySelectorAll<HTMLAnchorElement>(".nav-links a");
+  const toggle = nav?.querySelector<HTMLButtonElement>("[data-nav-toggle]");
   if (!nav || !toggle) return;
 
-  const setMenuState = (isOpen: boolean): void => {
-    toggle.setAttribute("aria-expanded", String(isOpen));
-    nav.classList.toggle("is-open", isOpen);
+  const setOpen = (open: boolean): void => {
+    toggle.setAttribute("aria-expanded", String(open));
+    nav.classList.toggle("is-open", open);
   };
 
-  toggle.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") === "true";
-    setMenuState(!expanded);
-  });
-
-  links.forEach((link) => {
-    link.addEventListener("click", () => setMenuState(false));
-  });
-
+  toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
   window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenuState(false);
+    if (event.key === "Escape" && nav.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
   });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 640) setMenuState(false);
+  window.matchMedia("(min-width: 900px)").addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
   });
 };
