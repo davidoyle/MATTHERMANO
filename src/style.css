@@ -196,6 +196,7 @@ button {
 }
 
 .ornament--divider {
+  --b-bloom: var(--ember);
   width: min(400px, 78%);
   height: auto;
   margin: 0 auto 1.5rem;
@@ -208,30 +209,6 @@ button {
 }
 
 /* ---------- type ---------- */
-
-.eyebrow {
-  margin: 0 0 1rem;
-  font-family: var(--font-label);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  line-height: 1.4;
-}
-
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 1.75rem;
-  height: 1px;
-  margin-right: 0.8em;
-  vertical-align: middle;
-  background: var(--wine);
-}
-
-.eyebrow a {
-  border-bottom: 1px solid var(--wine);
-}
 
 .page-title {
   font-size: clamp(2.75rem, 6.5vw, 5.25rem);
@@ -280,14 +257,14 @@ button {
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--wine);
+  border-bottom: 1px solid var(--ember);
   padding-bottom: 0.15em;
   transition: color 160ms ease, border-color 160ms ease;
 }
 
 .text-link:hover {
   color: var(--wine);
-  border-color: var(--ember);
+  border-color: var(--wine);
 }
 
 .text-link--arrow::after {
@@ -353,16 +330,6 @@ button {
   background: var(--wine);
   color: var(--sand);
   border-color: var(--wine);
-}
-
-.btn--ghost-light {
-  color: var(--sand);
-  border-color: var(--sand);
-}
-
-.btn--ghost-light:hover {
-  background: var(--sand);
-  color: var(--rust);
 }
 
 .btn--small {
@@ -511,7 +478,7 @@ button {
 }
 
 .site-nav__links a[aria-current="page"] {
-  border-bottom-color: var(--wine);
+  border-bottom-color: var(--ember);
 }
 
 .site-nav__social {
@@ -561,9 +528,12 @@ button {
 /* ---------- footer ---------- */
 
 .site-footer {
-  border-top: 1px solid rgb(144 98 82 / 0.6);
+  background: var(--rust);
+  color: var(--sand);
   padding-block: clamp(3rem, 6vw, 4.5rem) 2.5rem;
   text-align: center;
+  --b-line: var(--clay);
+  --b-bloom: var(--sand);
 }
 
 .site-footer__ornament {
@@ -606,7 +576,8 @@ button {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding-block: 0.35rem;
-  transition: color 160ms ease;
+  border-bottom: 1px solid transparent;
+  transition: border-color 160ms ease;
 }
 
 .site-footer__primary a[href^="mailto:"] {
@@ -617,7 +588,7 @@ button {
 .site-footer__primary a:hover,
 .site-footer__secondary a:hover,
 .site-footer__nav a:hover {
-  color: var(--wine);
+  border-bottom-color: var(--sand);
 }
 
 .site-footer__primary .icon {
@@ -636,7 +607,8 @@ button {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgb(138 49 44 / 0.6);
+  border-bottom: 1px solid var(--clay);
+  transition: border-color 160ms ease;
 }
 
 .site-footer__nav {
@@ -645,13 +617,13 @@ button {
   justify-content: center;
   gap: 0.5rem 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgb(144 98 82 / 0.45);
+  border-top: 1px solid rgb(144 98 82 / 0.7);
   width: min(40rem, 100%);
   margin: 0 auto;
 }
 
 .site-footer__nav a {
-  border: 0;
+  border-bottom-color: transparent;
 }
 
 .site-footer__legal {
@@ -674,11 +646,6 @@ button {
   align-items: baseline;
   gap: 0.25rem 1.5rem;
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
-}
-
-.section-head .eyebrow {
-  flex-basis: 100%;
-  margin-bottom: 0.5rem;
 }
 
 .section-head .section-title {
@@ -756,13 +723,22 @@ button {
 }
 
 .hero__cue a {
-  border-bottom: 1px solid var(--wine);
+  border-bottom: 1px solid var(--ember);
 }
 
 .hero__figure {
   position: relative;
   margin: 0;
   isolation: isolate;
+}
+
+/* clay block offset behind the photo */
+.hero__figure::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 8% -4.5% -5% 14%;
+  background: var(--clay);
 }
 
 .hero__photo {
@@ -798,7 +774,39 @@ button {
   --b-w: 1.2px;
 }
 
-/* ---------- jackets (sleeve art) ---------- */
+/* ---------- tones (one palette colour per release) ---------- */
+
+.tone--rust {
+  --tone: var(--rust);
+  --tone-ink: var(--sand);
+  --block: var(--rust);
+}
+
+.tone--wine {
+  --tone: var(--wine);
+  --tone-ink: var(--sand);
+  --block: var(--wine);
+}
+
+.tone--clay {
+  --tone: var(--clay);
+  --tone-ink: var(--sand);
+  --block: var(--clay);
+}
+
+.tone--ember {
+  --tone: var(--ember);
+  --tone-ink: var(--sand);
+  --block: var(--ember);
+}
+
+.tone--sand {
+  --tone: var(--sand);
+  --tone-ink: var(--rust);
+  --block: var(--clay);
+}
+
+/* ---------- jackets: original cover art + title strip ---------- */
 
 .jacket {
   position: relative;
@@ -806,18 +814,8 @@ button {
   aspect-ratio: 1;
   container-type: inline-size;
   overflow: hidden;
-  background: var(--j-bg);
-  color: var(--j-ink);
+  background: var(--tone);
   box-shadow: var(--sleeve-shadow);
-}
-
-.jacket::after {
-  content: "";
-  position: absolute;
-  inset: 4.5cqi;
-  border: 1px solid currentColor;
-  opacity: 0.38;
-  pointer-events: none;
 }
 
 .jacket__art {
@@ -825,79 +823,55 @@ button {
   inset: 0;
   width: 100%;
   height: 100%;
-  /* stems dissolve into the sleeve before the title */
-  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 80%);
-  mask-image: linear-gradient(to bottom, #000 58%, transparent 80%);
+  object-fit: cover;
 }
 
-.jacket__artist,
-.jacket__no {
+/* the strip that wraps the left edge of the sleeve */
+.jacket__obi {
   position: absolute;
-  top: 8.5cqi;
-  font-family: var(--font-label);
-  font-size: max(8px, 3.9cqi);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  line-height: 1;
+  inset: 0 auto 0 0;
+  width: 12.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5cqw;
+  padding: 3.5cqw 0;
+  background: var(--tone);
+  color: var(--tone-ink);
+  box-shadow: 1px 0 0 rgb(112 34 0 / 0.35), 4px 0 10px -4px rgb(0 0 0 / 0.35);
 }
 
-.jacket__artist {
-  left: 8.5cqi;
+.jacket__sprig {
+  width: 6cqw;
+  height: 9cqw;
+  flex: none;
+  --b-line: var(--tone-ink);
+  --b-bloom: var(--tone-ink);
+  --b-lo: 0.8;
+  --b-w: 1px;
 }
 
-.jacket__no {
-  right: 8.5cqi;
-  letter-spacing: 0.12em;
-}
-
-.jacket__title {
-  position: absolute;
-  left: 8.5cqi;
-  right: 8.5cqi;
-  bottom: 8cqi;
+.jacket__obi-text {
+  writing-mode: vertical-rl;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 9.5cqi;
-  line-height: 1.02;
+  font-size: 6cqw;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.jacket--rust {
-  --j-bg: var(--rust);
-  --j-ink: var(--sand);
-  --b-line: var(--clay);
-  --b-bloom: var(--sand);
+.jacket__obi-artist {
+  margin-top: auto;
+  writing-mode: vertical-rl;
+  font-family: var(--font-label);
+  font-size: max(7px, 2.6cqw);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.jacket--wine {
-  --j-bg: var(--wine);
-  --j-ink: var(--sand);
-  --b-line: var(--sand);
-  --b-lo: 0.55;
-  --b-bloom: var(--sand);
-}
-
-.jacket--clay {
-  --j-bg: var(--clay);
-  --j-ink: var(--sand);
-  --b-line: var(--sand);
-  --b-lo: 0.9;
-  --b-bloom: var(--rust);
-}
-
-.jacket--ember {
-  --j-bg: var(--ember);
-  --j-ink: var(--sand);
-  --b-line: var(--sand);
-  --b-lo: 0.55;
-  --b-bloom: var(--sand);
-}
-
-.jacket--sand {
-  --j-bg: var(--sand);
-  --j-ink: var(--rust);
-  --b-line: var(--clay);
-  --b-bloom: var(--wine);
-  box-shadow: inset 0 0 0 1px var(--clay), var(--sleeve-shadow);
+.tone--sand .jacket__obi {
+  box-shadow: 1px 0 0 var(--clay), 4px 0 10px -4px rgb(0 0 0 / 0.35);
 }
 
 /* ---------- home: featured row ---------- */
@@ -960,18 +934,9 @@ button {
   margin-inline: auto;
   padding: clamp(2.75rem, 6vw, 4.75rem) clamp(1.25rem, 6vw, 5rem);
   text-align: center;
-  border: 1px solid var(--clay);
-  box-shadow: var(--double-rule);
-}
-
-.bio-teaser .eyebrow::after {
-  content: "";
-  display: inline-block;
-  width: 1.75rem;
-  height: 1px;
-  margin-left: 0.8em;
-  vertical-align: middle;
-  background: var(--wine);
+  border: 1px solid var(--wine);
+  box-shadow: inset 0 0 0 5px var(--sand), inset 0 0 0 6px var(--wine);
+  --b-bloom: var(--ember);
 }
 
 .bio-teaser .section-title {
@@ -999,14 +964,19 @@ button {
   transform: rotate(180deg);
 }
 
-/* ---------- book band ---------- */
+/* ---------- book band (wine; only large type sits on it) ---------- */
 
 .book-band {
-  background: var(--rust);
+  background: var(--wine);
   color: var(--sand);
   text-align: center;
   padding-block: clamp(3.5rem, 8vw, 6.5rem);
-  --b-line: var(--clay);
+  --b-line: var(--sand);
+  --b-lo: 0.55;
+  --b-bloom: var(--sand);
+}
+
+.book-band .ornament--divider {
   --b-bloom: var(--sand);
 }
 
@@ -1018,9 +988,12 @@ button {
 }
 
 .book-band p {
-  max-width: 44ch;
+  max-width: 30ch;
   margin: 0 auto 2.25rem;
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.35;
 }
 
 .book-band__actions {
@@ -1028,6 +1001,53 @@ button {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+}
+
+.book-band .btn--inverse:hover {
+  background: var(--rust);
+  border-color: var(--rust);
+}
+
+.btn--dark {
+  background: var(--rust);
+  color: var(--sand);
+  border-color: var(--rust);
+}
+
+.btn--dark:hover {
+  background: var(--sand);
+  color: var(--rust);
+  border-color: var(--sand);
+}
+
+/* ---------- home: watch band (rust) ---------- */
+
+.section--watch {
+  background: var(--rust);
+  color: var(--sand);
+  --b-line: var(--clay);
+  --b-bloom: var(--sand);
+}
+
+.section--watch .section-title em {
+  color: var(--sand);
+}
+
+.section--watch .text-link {
+  border-bottom-color: var(--clay);
+}
+
+.section--watch .text-link:hover {
+  color: var(--sand);
+  border-bottom-color: var(--sand);
+}
+
+.section--watch .yt {
+  box-shadow: 0 24px 44px -24px rgb(0 0 0 / 0.7);
+}
+
+.section--watch :focus-visible {
+  outline-color: var(--sand);
 }
 
 /* ---------- video ---------- */
@@ -1225,8 +1245,8 @@ button {
 .label__card {
   position: relative;
   padding: clamp(1.4rem, 3vw, 2.25rem) clamp(1.4rem, 3.4vw, 2.5rem);
-  border: 1px solid var(--clay);
-  box-shadow: var(--double-rule);
+  border: 1px solid var(--block);
+  box-shadow: inset 0 0 0 5px var(--sand), inset 0 0 0 6px var(--block);
 }
 
 .label__head {
@@ -1234,7 +1254,7 @@ button {
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--clay);
+  border-bottom: 1px solid var(--block);
   font-family: var(--font-label);
   font-size: 0.78rem;
   letter-spacing: 0.24em;
@@ -1250,37 +1270,16 @@ button {
   color: var(--wine);
 }
 
-.label__artist {
-  margin: 0.35rem 0 0;
-  font-family: var(--font-label);
-  font-size: 0.78rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.label__specs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 2.5rem;
-  margin: 1.4rem 0;
-}
-
-.label__specs dt {
-  font-family: var(--font-label);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.label__specs dd {
-  margin: 0;
+.label__length {
+  margin: 0.4rem 0 1.25rem;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-style: italic;
+  font-size: 1.3rem;
 }
 
 .label__note {
   font-style: italic;
-  border-left: 2px solid var(--wine);
+  border-left: 2px solid var(--block);
   padding-left: 0.95rem;
   max-width: 34em;
 }
@@ -1327,6 +1326,17 @@ button {
 .track__jacket {
   position: sticky;
   top: calc(var(--header-h) + 1.5rem);
+  isolation: isolate;
+  margin-bottom: 7%;
+}
+
+/* the release colour, offset behind the sleeve */
+.track__jacket::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 9% -7% -7% 9%;
+  background: var(--block);
 }
 
 .track__title {
@@ -1451,10 +1461,6 @@ button {
   padding-block: clamp(2.5rem, 6vw, 4rem);
 }
 
-.jacket--large .jacket__title {
-  font-size: 8.5cqi;
-}
-
 /* ---------- about ---------- */
 
 .about-intro {
@@ -1465,13 +1471,22 @@ button {
   padding-block: clamp(2rem, 5vw, 4.5rem);
 }
 
-.about-intro__text p:not(.eyebrow) {
+.about-intro__text p {
   max-width: 36em;
 }
 
 .about-intro__figure {
   position: relative;
   margin: 0;
+  isolation: isolate;
+}
+
+.about-intro__figure::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 9% 12% -6% -7%;
+  background: var(--wine);
 }
 
 .about-intro__figure img {
@@ -1511,7 +1526,7 @@ button {
   list-style: none;
   margin: 0;
   padding: 0.4rem 0 0;
-  border-left: 1px solid var(--clay);
+  border-left: 1px solid var(--wine);
 }
 
 .chapter {
@@ -1535,11 +1550,12 @@ button {
   height: 9px;
   border-radius: 50%;
   background: var(--sand);
-  border: 1px solid var(--wine);
+  border: 1px solid var(--ember);
 }
 
 .chapter--highlight::before {
   background: var(--wine);
+  border-color: var(--wine);
 }
 
 .chapter__age {
@@ -1548,7 +1564,7 @@ button {
   font-family: var(--font-display);
   font-size: 2.2rem;
   line-height: 1;
-  color: var(--wine);
+  color: var(--ember);
   white-space: nowrap;
 }
 
@@ -1571,33 +1587,6 @@ button {
 .chapter__body p {
   max-width: 36em;
   margin-bottom: 0.9rem;
-}
-
-.medal {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  max-width: 24rem;
-  margin: 1.1rem 0 1.4rem;
-  padding: 1rem 1.3rem;
-  border: 1px solid var(--clay);
-  box-shadow: var(--double-rule);
-}
-
-.medal__count {
-  margin: 0 !important;
-  font-family: var(--font-display);
-  font-size: 3.25rem;
-  line-height: 1;
-  color: var(--wine);
-}
-
-.medal__text {
-  margin: 0 !important;
-  font-family: var(--font-label);
-  font-size: 0.85rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 .journey__photos {
@@ -1633,92 +1622,89 @@ button {
 }
 
 .cal__section > .section-title {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.cal__group + .cal__group {
+  margin-top: 2.5rem;
+}
+
+.cal__month {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.cal__month::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ember);
 }
 
 .cal__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--clay);
 }
 
 .cal__row {
   display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr) auto;
-  gap: 1.5rem;
+  grid-template-columns: 5.25rem minmax(0, 1fr) auto;
+  gap: 1.75rem;
   align-items: center;
-  padding: 1.35rem 0;
+  padding: 0.9rem 0;
   border-bottom: 1px solid var(--clay);
 }
 
+/* ticket-stub date */
 .cal__date {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  justify-items: center;
+  padding: 0.7rem 0 0.75rem;
+  background: var(--rust);
+  color: var(--sand);
   line-height: 1;
+  box-shadow: inset 0 0 0 4px var(--rust), inset 0 0 0 5px rgb(187 178 154 / 0.35);
 }
 
-.cal__mon,
-.cal__yr {
+.cal__wd,
+.cal__mon {
   font-family: var(--font-label);
-  font-size: 0.75rem;
-  letter-spacing: 0.24em;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
 .cal__day {
   font-family: var(--font-display);
-  font-size: 2.5rem;
-  margin: 0.15rem 0 0.25rem;
-}
-
-.cal__date:not(:has(.cal__day)) .cal__mon {
-  font-family: var(--font-display);
-  font-size: 1.9rem;
-  letter-spacing: 0;
-  text-transform: none;
-  margin-bottom: 0.35rem;
+  font-size: 2.3rem;
+  margin: 0.2rem 0 0.25rem;
 }
 
 .cal__title {
-  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
-  margin: 0.55rem 0 0.2rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  margin: 0;
 }
 
 .cal__detail {
-  margin: 0;
-  font-size: 0.98rem;
-}
-
-.cal__row--show .tag {
-  background: var(--rust);
-  color: var(--sand);
-}
-
-.cal__year {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 2.25rem 0 0.9rem;
+  margin: 0.35rem 0 0;
   font-family: var(--font-label);
-  font-size: 0.95rem;
-  letter-spacing: 0.32em;
+  font-size: 0.88rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.cal__year::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--clay);
-}
-
-.cal__year-group:first-of-type .cal__year {
-  margin-top: 0;
-}
-
-.cal__year + .cal__list {
-  border-top: 0;
+.cal__section--past .cal__date {
+  background: transparent;
+  color: var(--rust);
+  box-shadow: inset 0 0 0 1px var(--clay);
 }
 
 .cal__empty {
@@ -1790,11 +1776,6 @@ button {
   padding: 0;
 }
 
-.medal__text .tag {
-  display: table;
-  margin-bottom: 0.55rem;
-}
-
 .book__alt .text-link {
   text-transform: none;
   letter-spacing: 0.04em;
@@ -1805,8 +1786,8 @@ button {
   display: grid;
   gap: 1.35rem;
   padding: clamp(1.5rem, 4vw, 2.75rem);
-  border: 1px solid var(--clay);
-  box-shadow: var(--double-rule);
+  border: 1px solid var(--wine);
+  box-shadow: inset 0 0 0 5px var(--sand), inset 0 0 0 6px var(--wine);
 }
 
 .booking-form label {
@@ -2126,6 +2107,10 @@ button {
     inset: 10px;
   }
 
+  .hero__figure::before {
+    display: none;
+  }
+
   .hero__photo {
     max-height: 72svh;
     box-shadow: none;
@@ -2157,7 +2142,8 @@ button {
   }
 
   .track__jacket {
-    position: static;
+    position: relative;
+    top: auto;
     width: min(360px, 82%);
   }
 
@@ -2253,14 +2239,9 @@ button {
     right: 10px;
   }
 
-  .label__specs {
-    gap: 0.5rem 1.5rem;
-  }
-
   .cal__row {
-    grid-template-columns: 4.75rem minmax(0, 1fr);
-    gap: 0.5rem 1rem;
-    align-items: start;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 0.5rem 1.1rem;
   }
 
   .cal__link {
@@ -2270,10 +2251,6 @@ button {
 
   .cal__day {
     font-size: 2rem;
-  }
-
-  .cal__date:not(:has(.cal__day)) .cal__mon {
-    font-size: 1.5rem;
   }
 
   .chapter {

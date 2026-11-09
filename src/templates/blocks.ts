@@ -1,13 +1,12 @@
-import { botanical, cornerSprig, divider, heroVine, svg } from "../lib/botanical";
+import { cornerSprig, divider, heroVine, sprigMark, svg } from "../lib/botanical";
 import { icons } from "../lib/icons";
 import { navLinks, site, socialById, socials } from "../data/site";
-import { featuredSlugs, leadTrackSlug, releaseLabel, releaseYear, requireTrack, soundcloudWidgetUrl, tracks, type Track } from "../data/tracks";
+import { featuredSlugs, leadTrackSlug, requireTrack, soundcloudWidgetUrl, tracks, type Track } from "../data/tracks";
 import { featuredVideo, videoById, videos, type Video } from "../data/videos";
 
 export const esc = (value: string): string =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const no = (track: Track): string => `Nº ${String(track.no).padStart(2, "0")}`;
 const trackHref = (track: Track): string => `/track/${track.slug}/`;
 
 /* ---------- ornaments ---------- */
@@ -86,12 +85,28 @@ export const footer = (): string => {
 
 /* ---------- music ---------- */
 
-export const jacket = (track: Track, extra = ""): string => `
-<div class="jacket jacket--${track.jacket} ${extra}">
-  ${svg(botanical(track.botanical), "jacket__art")}
-  <span class="jacket__artist">Matt Hermano</span>
-  <span class="jacket__no">${no(track)}</span>
-  <span class="jacket__title">${esc(track.title)}</span>
+/**
+ * Record sleeve: the original cover art with a palette-coloured title strip
+ * down the left edge, like the paper band on a Japanese pressing.
+ */
+export const jacket = (track: Track, options: { extra?: string; sizes?: string; alt?: string; eager?: boolean } = {}): string => `
+<div class="jacket tone--${track.tone} ${options.extra ?? ""}">
+  <img
+    class="jacket__art"
+    src="/assets/art/${track.slug}-640.webp"
+    srcset="/assets/art/${track.slug}-640.webp 640w, /assets/art/${track.slug}-1200.webp 1200w"
+    sizes="${options.sizes ?? "(min-width: 1080px) 300px, (min-width: 600px) 45vw, 50vw"}"
+    width="640"
+    height="640"
+    alt="${esc(options.alt ?? "")}"
+    ${options.eager ? "" : 'loading="lazy"'}
+    decoding="async"
+  />
+  <span class="jacket__obi" aria-hidden="true">
+    ${svg(sprigMark(), "jacket__sprig")}
+    <span class="jacket__obi-text">${esc(track.title)}</span>
+    <span class="jacket__obi-artist">Matt Hermano</span>
+  </span>
 </div>`;
 
 export const playButton = (track: Track, extra = ""): string =>
@@ -121,17 +136,12 @@ export const labels = (): string =>
   tracks
     .map(
       (track) => `
-<article class="label" id="${track.slug}">
+<article class="label tone--${track.tone}" id="${track.slug}">
   <a class="label__jacket" href="${trackHref(track)}" tabindex="-1" aria-hidden="true">${jacket(track)}</a>
   <div class="label__card">
-    <div class="label__head"><span>${no(track)}</span><span>${releaseYear(track.released)}</span></div>
+    <div class="label__head"><span>Matt Hermano</span><span>${esc(track.genre)}</span></div>
     <h3 class="label__title"><a href="${trackHref(track)}">${esc(track.title)}</a></h3>
-    <p class="label__artist">Matt Hermano</p>
-    <dl class="label__specs">
-      <div><dt>Length</dt><dd>${track.duration}</dd></div>
-      <div><dt>Released</dt><dd>${releaseLabel(track.released)}</dd></div>
-      <div><dt>Genre</dt><dd>${esc(track.genre)}</dd></div>
-    </dl>
+    <p class="label__length">${track.duration}</p>
     ${track.description ? `<p class="label__note">${esc(track.description)}</p>` : ""}
     <div class="label__actions">
       ${playButton(track, "play-btn--large")}
@@ -228,7 +238,7 @@ export const videoCarousel = (): string => `
 
 const lyricsBlock = (lyrics: string): string => `
 <section class="track-lyrics" aria-labelledby="lyrics-heading">
-  <p class="eyebrow" id="lyrics-heading">Lyrics</p>
+  <h2 class="section-title" id="lyrics-heading">Lyrics</h2>
   ${lyrics
     .trim()
     .split(/\n\s*\n/)
@@ -245,11 +255,12 @@ export const trackPage = (slug: string): string => {
   return `
 <article class="track" data-track="${track.slug}">
   <div class="wrap track__hero">
-    <div class="track__jacket">${jacket(track, "jacket--large")}</div>
+    <div class="track__jacket tone--${track.tone}">
+      ${jacket(track, { extra: "jacket--large", sizes: "(min-width: 900px) 42vw, 82vw", alt: `Cover art for ${track.title}`, eager: true })}
+    </div>
     <div class="track__body">
-      <p class="eyebrow"><a href="/music/">Music</a> <span aria-hidden="true">/</span> ${no(track)}</p>
       <h1 class="track__title">${esc(track.title)}</h1>
-      <p class="track__meta">Matt Hermano <span aria-hidden="true">·</span> ${releaseLabel(track.released)} <span aria-hidden="true">·</span> ${esc(track.genre)}</p>
+      <p class="track__meta">Matt Hermano <span aria-hidden="true">·</span> ${esc(track.genre)}</p>
       <div class="track__play">
         <a class="btn btn--primary btn--play" href="${track.soundcloudUrl}" data-play="${track.slug}">${icons.play}${icons.pause}<span data-play-label>Play</span></a>
         <span class="track__duration"><span class="sr-only">Duration </span>${track.duration}</span>
@@ -269,7 +280,6 @@ export const trackPage = (slug: string): string => {
     video
       ? `<section class="wrap track__video" aria-labelledby="video-heading">
     ${ornament.divider()}
-    <p class="eyebrow">Watch</p>
     <h2 class="section-title" id="video-heading">${esc(video.title)}${video.kind ? ` <em>${video.kind.toLowerCase()}</em>` : ""}</h2>
     ${youtube(video, "yt--feature", "hq")}
   </section>`

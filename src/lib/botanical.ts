@@ -6,7 +6,6 @@
  * Colour is never baked in: strokes use classes that read CSS custom properties.
  *   .ln  stems and leaves   -> var(--b-line)
  *   .bl  blooms             -> var(--b-bloom)
- *   .dt  filled accents     -> var(--b-bloom)
  */
 
 export type Pt = [number, number];
@@ -23,20 +22,7 @@ const len = (v: Pt): number => Math.hypot(v[0], v[1]);
 const norm = (v: Pt): Pt => mul(v, 1 / (len(v) || 1));
 const angleOf = (v: Pt): number => (Math.atan2(v[1], v[0]) * 180) / Math.PI;
 
-/** Deterministic PRNG so the art is identical on every build. */
-const rng = (seed: number) => {
-  let a = seed >>> 0;
-  return (): number => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-};
-
 const path = (cls: string, d: string): string => `<path class="${cls}" d="${d}"/>`;
-const dot = (c: Pt, r: number): string => `<circle class="dt" cx="${r1(c[0])}" cy="${r1(c[1])}" r="${r1(r)}"/>`;
 
 /* ---------- curves ---------- */
 
@@ -86,12 +72,6 @@ export const leaf = (base: Pt, angle: number, length: number, width: number, ben
   let s = `M${p(base)}C${p(at(0.28, width, 0.1))} ${p(at(0.72, width * 0.8, 0.55))} ${p(tip)}C${p(at(0.72, -width * 0.8, 0.55))} ${p(at(0.28, -width, 0.1))} ${p(base)}Z`;
   if (rib) s += `M${p(base)}Q${p(at(0.5, 0, 0.32))} ${p(at(0.8, 0, 0.7))}`;
   return path("ln", s);
-};
-
-/** Leaf on a short stalk, growing from a point on a stem. */
-const stalkedLeaf = (from: Pt, angle: number, stalk: number, length: number, width: number, bend = 0): string => {
-  const base = add(from, mul(unit(angle), stalk));
-  return path("ln", `M${p(from)}L${p(base)}`) + leaf(base, angle, length, width, bend);
 };
 
 /** Heart-shaped leaf (morning glory family): rounded basal lobes, drawn-out tip. */
@@ -146,33 +126,6 @@ const tendril = (start: Pt, angle: number, length: number, dir: 1 | -1, turns = 
 };
 
 /* ---------- blooms ---------- */
-
-const iris = (c: Pt, s: number): string => {
-  const out: string[] = [];
-  // standards (upright)
-  out.push(petal(add(c, [0, -2]), -90, s * 0.95, s * 0.22, 0.75));
-  out.push(petal(add(c, [-3, -1]), -122, s * 0.72, s * 0.2, 0.7));
-  out.push(petal(add(c, [3, -1]), -58, s * 0.72, s * 0.2, 0.7));
-  // falls (drooping), drawn as long recurved petals
-  const fall = (sx: 1 | -1): string => {
-    const o = (x: number, y: number): Pt => add(c, [sx * x * s, y * s]);
-    return path(
-      "bl",
-      `M${p(o(0.02, 0.02))}C${p(o(0.38, -0.2))} ${p(o(0.86, -0.05))} ${p(o(0.84, 0.32))}` +
-        `C${p(o(0.82, 0.6))} ${p(o(0.6, 0.72))} ${p(o(0.5, 0.58))}` +
-        `C${p(o(0.4, 0.42))} ${p(o(0.26, 0.2))} ${p(o(0.02, 0.06))}Z` +
-        `M${p(o(0.12, 0.03))}C${p(o(0.4, -0.04))} ${p(o(0.62, 0.12))} ${p(o(0.64, 0.38))}`
-    );
-  };
-  out.push(fall(1), fall(-1));
-  out.push(petal(add(c, [0, 3]), 92, s * 0.62, s * 0.2, 0.9));
-  // beard
-  for (let i = 0; i < 4; i++) {
-    const y = c[1] + 8 + i * (s * 0.09);
-    out.push(path("bl", `M${p([c[0] - 2.5, y])}L${p([c[0] + 2.5, y + 2])}`));
-  }
-  return out.join("");
-};
 
 const moonflower = (c: Pt, r: number, tilt: number, tubeTo: Pt): string => {
   const out: string[] = [];
@@ -240,177 +193,12 @@ const furledBud = (base: Pt, angle: number, length: number): string => {
   );
 };
 
-const dandelion = (c: Pt, r: number, seed: number): string => {
-  const rand = rng(seed);
-  const out: string[] = [];
-  const count = 46;
-  for (let i = 0; i < count; i++) {
-    if (rand() < 0.2) continue;
-    const ang = (i / count) * 360 + rand() * 4;
-    const reach = r * (0.88 + rand() * 0.12);
-    const from = add(c, mul(unit(ang), r * 0.13));
-    const to = add(c, mul(unit(ang), reach));
-    out.push(path("bl", `M${p(from)}L${p(to)}`));
-    out.push(pappus(to, ang, r * 0.13));
-  }
-  out.push(dot(c, r * 0.07));
-  return out.join("");
-};
-
-const pappus = (at: Pt, angle: number, size: number): string => {
-  const rays = [-46, -24, 0, 24, 46].map((o) => `M${p(at)}L${p(add(at, mul(unit(angle + o), size)))}`).join("");
-  return path("bl", rays);
-};
-
-const driftingSeed = (at: Pt, angle: number, length: number): string => {
-  const head = add(at, mul(unit(angle), length));
-  return path("bl", `M${p(at)}L${p(head)}`) + pappus(head, angle, length * 0.42) + dot(at, 1.3);
-};
-
-/** Side-view poppy cup with ruffled rim. */
-const poppy = (base: Pt, s: number, tilt: number): string => {
-  const rot = (tilt * Math.PI) / 180;
-  const o = (x: number, y: number): Pt => {
-    const lx = x * s;
-    const ly = y * s;
-    return add(base, [lx * Math.cos(rot) - ly * Math.sin(rot), lx * Math.sin(rot) + ly * Math.cos(rot)]);
-  };
-  const out: string[] = [];
-  // back petals
-  out.push(path("bl", `M${p(o(-0.08, 0))}C${p(o(-0.5, -0.12))} ${p(o(-0.78, -0.62))} ${p(o(-0.5, -0.92))}Q${p(o(-0.4, -0.98))} ${p(o(-0.3, -0.9))}Q${p(o(-0.18, -1.02))} ${p(o(-0.04, -0.94))}`));
-  out.push(path("bl", `M${p(o(0.08, 0))}C${p(o(0.5, -0.12))} ${p(o(0.8, -0.6))} ${p(o(0.56, -0.9))}Q${p(o(0.46, -0.99))} ${p(o(0.34, -0.92))}Q${p(o(0.2, -1.03))} ${p(o(0.06, -0.94))}`));
-  // front petal, ruffled top
-  out.push(
-    path(
-      "bl",
-      `M${p(o(0, 0.02))}C${p(o(-0.52, -0.05))} ${p(o(-0.62, -0.5))} ${p(o(-0.46, -0.7))}` +
-        `Q${p(o(-0.36, -0.8))} ${p(o(-0.24, -0.7))}Q${p(o(-0.12, -0.82))} ${p(o(0.0, -0.72))}Q${p(o(0.12, -0.84))} ${p(o(0.24, -0.72))}Q${p(o(0.38, -0.8))} ${p(o(0.46, -0.68))}` +
-        `C${p(o(0.62, -0.48))} ${p(o(0.5, -0.04))} ${p(o(0, 0.02))}Z`
-    )
-  );
-  // veins
-  [-0.3, -0.1, 0.1, 0.3].forEach((x) => {
-    out.push(path("bl", `M${p(o(x * 0.25, -0.02))}Q${p(o(x * 0.9, -0.3))} ${p(o(x * 1.05, -0.58))}`));
-  });
-  return out.join("");
-};
-
-/** Nodding poppy bud on a crook. */
-const poppyBud = (top: Pt, s: number): string => {
-  const hang = add(top, [s * 0.35, s * 0.12]);
-  const d = unit(105);
-  const n = perp(d);
-  const at = (a: number, side: number): Pt => add(add(hang, mul(d, s * a)), mul(n, side * s));
-  return (
-    path("ln", `M${p(top)}Q${p(add(top, [s * 0.3, -s * 0.12]))} ${p(hang)}`) +
-    path("bl", `M${p(hang)}C${p(at(0.1, 0.34))} ${p(at(0.72, 0.3))} ${p(at(0.9, 0))}C${p(at(0.72, -0.3))} ${p(at(0.1, -0.34))} ${p(hang)}Z`) +
-    path("bl", `M${p(at(0.06, 0.04))}Q${p(at(0.45, 0.1))} ${p(at(0.86, 0.02))}`)
-  );
-};
-
-/** Short hairs along a stem, a poppy signature. */
-const hairs = (pts: Pt[], from: number, to: number, count: number, seed: number): string => {
-  const rand = rng(seed);
-  let d = "";
-  for (let i = 0; i < count; i++) {
-    const t = from + ((to - from) * i) / count;
-    const { at, angle } = along(pts, t);
-    const side = i % 2 ? 1 : -1;
-    const start = add(at, mul(unit(angle + 90 * side), 1));
-    d += `M${p(start)}L${p(add(start, mul(unit(angle + side * (70 + rand() * 20) + 180 * 0), 3 + rand() * 2)))}`;
-  }
-  return path("ln", d);
-};
-
 /* ---------- compositions ---------- */
 
 export interface Art {
   viewBox: string;
   body: string;
 }
-
-export type BotanicalKind = "iris" | "moonflower" | "dandelion" | "poppy" | "eucalyptus";
-
-const irisArt = (): Art => {
-  const stem: Pt[] = [[176, 330], [170, 260], [166, 190], [162, 128]];
-  const out: string[] = [path("ln", smooth(stem))];
-  out.push(leaf([150, 330], -97, 205, 6.5, 0.06));
-  out.push(leaf([190, 330], -78, 150, 5.5, -0.12));
-  out.push(leaf([168, 330], -88, 120, 5, 0.18));
-  out.push(leaf([163, 150], -100, 34, 4.5, -0.1, false));
-  out.push(iris([161, 124], 58));
-  return { viewBox: "0 0 300 300", body: out.join("") };
-};
-
-const moonflowerArt = (): Art => {
-  const vine: Pt[] = [[60, 330], [92, 268], [70, 214], [108, 182], [146, 176]];
-  const out: string[] = [path("ln", smooth(vine))];
-  out.push(heartLeaf(along(vine, 0.18).at, 200, 46, 20, 0.08));
-  out.push(heartLeaf(along(vine, 0.42).at, -20, 40, 17, -0.08));
-  out.push(heartLeaf(along(vine, 0.63).at, 205, 30, 13, 0.06));
-  out.push(tendril(along(vine, 0.5).at, 10, 36, -1));
-  out.push(tendril(along(vine, 0.28).at, 175, 30, 1));
-  const budStem: Pt[] = [along(vine, 0.7).at, [96, 140], [86, 108]];
-  out.push(path("ln", smooth(budStem)));
-  out.push(furledBud([86, 108], -100, 40));
-  out.push(moonflower([204, 104], 46, -14, [146, 176]));
-  return { viewBox: "0 0 300 300", body: out.join("") };
-};
-
-const dandelionArt = (): Art => {
-  const stem: Pt[] = [[118, 330], [128, 250], [142, 190], [148, 140]];
-  const bare: Pt[] = [[150, 330], [168, 270], [196, 230], [214, 212]];
-  const out: string[] = [path("ln", smooth(stem)), path("ln", smooth(bare))];
-  out.push(dot([214, 212], 2.6));
-  out.push(dandelion([148, 112], 50, 7));
-  out.push(driftingSeed([228, 104], -62, 18));
-  out.push(driftingSeed([254, 82], -40, 15));
-  out.push(driftingSeed([214, 70], -76, 13));
-  out.push(leaf([122, 330], -128, 70, 7, 0.1, true));
-  return { viewBox: "0 0 300 300", body: out.join("") };
-};
-
-const poppyArt = (): Art => {
-  const stem: Pt[] = [[120, 330], [138, 262], [134, 200], [150, 150]];
-  const budStem: Pt[] = [[176, 330], [184, 270], [204, 210], [214, 176]];
-  const out: string[] = [path("ln", smooth(stem)), path("ln", smooth(budStem))];
-  out.push(hairs(stem, 0.35, 0.95, 9, 3));
-  out.push(hairs(budStem, 0.3, 0.95, 7, 5));
-  out.push(poppy([150, 150], 64, 8));
-  out.push(poppyBud([214, 176], 30));
-  out.push(leaf([128, 330], -118, 64, 9, 0.12));
-  return { viewBox: "0 0 300 300", body: out.join("") };
-};
-
-const eucalyptusArt = (): Art => {
-  const branch: Pt[] = [[22, 300], [56, 196], [122, 122], [204, 104], [262, 140]];
-  const out: string[] = [path("ln", smooth(branch))];
-  const pairs = [0.16, 0.3, 0.44, 0.57, 0.69, 0.8, 0.9];
-  pairs.forEach((t, i) => {
-    const { at, angle } = along(branch, t);
-    const size = 38 - i * 3.6;
-    out.push(stalkedLeaf(at, angle - 58, 4, size, size * 0.5, 0.05));
-    out.push(stalkedLeaf(at, angle + 64, 4, size * 0.9, size * 0.48, -0.05));
-  });
-  const tip = along(branch, 0.99).at;
-  out.push(leaf(tip, 70, 16, 6, 0, false));
-  // gumnut cluster
-  const { at } = along(branch, 0.5);
-  const nut = add(at, [6, 26]);
-  out.push(path("ln", `M${p(at)}Q${p(add(at, [8, 10]))} ${p(nut)}`));
-  [[0, 0], [-5.5, 4.5], [5.5, 4.5], [0, 9]].forEach(([dx, dy]) => out.push(dot(add(nut, [dx, dy]), 2.1)));
-  return { viewBox: "0 0 300 300", body: out.join("") };
-};
-
-const builders: Record<BotanicalKind, () => Art> = {
-  iris: irisArt,
-  moonflower: moonflowerArt,
-  dandelion: dandelionArt,
-  poppy: poppyArt,
-  eucalyptus: eucalyptusArt
-};
-
-export const botanical = (kind: BotanicalKind): Art => builders[kind]();
 
 /* ---------- ornaments ---------- */
 
@@ -452,6 +240,15 @@ export const divider = (): Art => {
   out.push(leaf([200, 27], -150, 12, 3.4, 0, false));
   out.push(leaf([200, 27], -30, 12, 3.4, 0, false));
   return { viewBox: "0 0 400 40", body: out.join("") };
+};
+
+/** Tiny upright sprig: stem, two leaves, a bud. Sits on each cover's title strip. */
+export const sprigMark = (): Art => {
+  const out: string[] = [path("ln", "M20 58Q19 40 20 18")];
+  out.push(leaf([20, 46], -140, 15, 4.2, 0.08, false));
+  out.push(leaf([20, 36], -40, 13, 3.8, -0.08, false));
+  out.push(petal([20, 19], -90, 13, 4.6, 0.55));
+  return { viewBox: "0 0 40 60", body: out.join("") };
 };
 
 /** Tall climbing moonflower vine for the home hero. */
