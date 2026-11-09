@@ -3,86 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matt Hermano — Music</title>
-    <meta name="description" content="Matt Hermano official music site." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@400;600&family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/style.css" />
+    <title>Matt Hermano · Warm vocals, late-night soul</title>
+    <meta name="description" content="Matt Hermano is a pop soul singer-songwriter from Vancouver, BC. Listen to Late Night Drive, Chill With Me and more, watch the videos, and book a show." />
+    <!--@head-->
   </head>
-  <body>
-    <div class="site-shell">
-      <svg class="corner-cut corner-tl" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
-      <svg class="corner-cut corner-tr" viewBox="0 0 42 42" aria-hidden="true"><path d="M2 40V2h38" /></svg>
-      <header class="top-nav" data-nav>
-        <a class="brand" href="/">Matt Hermano</a>
-        <div class="nav-group">
-          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">☰</button>
-          <nav aria-label="Main navigation">
-            <ul class="nav-links">
-              <li><a href="/">Music</a></li>
-              <li><a href="/about/">About</a></li>
-              <li><a href="/gallery/">Gallery</a></li>
-              <li><a href="/video/">Video</a></li>
-              <li><a class="book-link" href="/book/">Book</a></li>
-              <li><a href="https://www.instagram.com/matthermanomusic" aria-label="Instagram">◎</a></li>
-            </ul>
-          </nav>
+  <body class="page-home">
+    <!--@header-->
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-name">
+        <div class="wrap hero__grid">
+          <div class="hero__text">
+            <p class="eyebrow">Pop soul <span aria-hidden="true">·</span> Vancouver, BC</p>
+            <h1 class="hero__name" id="hero-name">Matt <em>Hermano</em></h1>
+            <p class="hero__line">Warm vocals, late-night soul.</p>
+            <!--@listen-->
+          </div>
+          <figure class="hero__figure">
+            <!--@hero-vine-->
+            <img
+              class="hero__photo"
+              src="./assets/photos/hero-1200.webp"
+              srcset="./assets/photos/hero-800.webp 800w, ./assets/photos/hero-1200.webp 1200w, ./assets/photos/hero-1600.webp 1600w"
+              sizes="(min-width: 900px) 46vw, 100vw"
+              width="1200"
+              height="1500"
+              alt="Matt Hermano on stage in a floral jacket, singing and playing acoustic guitar"
+              fetchpriority="high"
+            />
+          </figure>
         </div>
-      </header>
+      </section>
 
-      <main>
-        <section class="hero">
-          <div class="hero-inner">
-            <svg class="vinyl-motif vinyl-spin" viewBox="0 0 300 300" aria-hidden="true">
-              <defs>
-                <path id="labelCircle" d="M150,150 m-108,0 a108,108 0 1,1 216,0 a108,108 0 1,1 -216,0" />
-              </defs>
-              <g class="vinyl-rings">
-                <circle cx="150" cy="150" r="132" />
-                <circle cx="150" cy="150" r="116" />
-                <circle cx="150" cy="150" r="100" />
-                <circle cx="150" cy="150" r="82" />
-              </g>
-              <circle class="vinyl-label" cx="150" cy="150" r="58" />
-              <circle cx="150" cy="150" r="10" fill="#1b0b0f" />
-              <text>
-                <textPath href="#labelCircle" startOffset="0%">MATT HERMANO - SIDE A • MATT HERMANO - SIDE A •</textPath>
-              </text>
-            </svg>
-            <h1>MATT HERMANO</h1>
-            <p class="hero-tagline">Warm vocals, late-night soul, and stories that stay.</p>
-            <p><a class="cta-button" href="#tracks">Listen</a></p>
+      <section class="section" aria-labelledby="featured-heading">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Listen</p>
+            <h2 class="section-title" id="featured-heading">Start here</h2>
+            <a class="text-link text-link--arrow" href="/music/">All music</a>
           </div>
-        </section>
+          <!--@featured-->
+        </div>
+      </section>
 
-        <section class="music-section" id="tracks">
-          <h2 class="section-title">Music</h2>
-          <div class="track-list"></div>
-        </section>
-
-        <section class="page">
-          <h2 class="section-title">Watch</h2>
-          <div class="video-card" style="max-width: 800px; margin: 0 auto">
-            <div class="embed-wrap video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/BK00ifR-EKE?start=1"
-                title="Who I Am"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy"
-              ></iframe>
-            </div>
+      <section class="section section--watch" aria-labelledby="watch-heading">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Watch</p>
+            <h2 class="section-title" id="watch-heading">Chill With Me <em>original video</em></h2>
+            <a class="text-link text-link--arrow" href="/video/">All videos</a>
           </div>
-        </section>
+          <!--@video-home-->
+        </div>
+      </section>
 
-        <section class="booking-strip">
-          <p>Matt Hermano is available for bookings.<br />Vancouver, British Columbia.<br />Original songs and intimate live performances for coffeehouses, listening rooms, and private events.</p>
-          <a class="cta-button" href="/book/">Book a show</a>
-        </section>
-      </main>
-    </div>
+      <section class="section" aria-labelledby="bio-heading">
+        <div class="wrap">
+          <div class="bio-teaser">
+            <!--@corner--><!--@corner-->
+            <p class="eyebrow">About</p>
+            <h2 class="section-title" id="bio-heading">Soul that came back the long way</h2>
+            <p class="lead">
+              Matt Hermano is a Vancouver singer-songwriter whose sound is rooted in 70s Motown and 2000s pop. He picked up his first guitar at 13,
+              won three silver medals for Canada at 29, and walked away from music twice before it pulled him back. Now he writes about longing and
+              quiet courage, and sings to rooms that listen.
+            </p>
+            <a class="text-link text-link--arrow" href="/about/">Read more</a>
+          </div>
+        </div>
+      </section>
 
+      <section class="book-band" aria-labelledby="book-heading">
+        <div class="wrap book-band__inner">
+          <!--@divider-->
+          <h2 class="book-band__title" id="book-heading">Bring late-night soul to your room.</h2>
+          <p>House concerts, listening rooms, venue sets and private events. Based in Vancouver, BC.</p>
+          <a class="btn btn--inverse btn--large" href="/book/">Book a show</a>
+        </div>
+      </section>
+    </main>
+
+    <!--@footer-->
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

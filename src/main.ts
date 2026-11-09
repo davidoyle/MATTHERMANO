@@ -1,15 +1,16 @@
 import "./style.css";
 import { initializeBookingForm } from "./components/booking";
+import { initializeCalendar } from "./components/calendar";
+import { initializeCarousel } from "./components/carousel";
 import { initializeGallery } from "./components/gallery";
-import { initializeNavMenu, markActiveNav } from "./components/nav";
-import { renderTrackDetail } from "./components/track-detail";
-import { renderTrackRows } from "./components/tracks";
-import { initializeVideoCarousel } from "./components/videos";
+import { initializeNavMenu } from "./components/nav";
+import { initializePlayer } from "./components/player";
+import { initializeYouTube } from "./components/youtube";
 
-renderTrackRows("#tracks .track-list");
-initializeGallery();
-markActiveNav();
 initializeNavMenu();
+initializePlayer();
+initializeYouTube();
+initializeCarousel();
+initializeGallery();
+initializeCalendar();
 initializeBookingForm();
-initializeVideoCarousel("#video-carousel");
-renderTrackDetail();
