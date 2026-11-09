@@ -4,7 +4,7 @@ export const site = {
   genre: "Pop soul",
   location: "Vancouver, BC",
   /** Public contact address: footer, booking page, and the form's error fallback. */
-  email: "matthemano@gmail.com",
+  email: "matthermano@gmail.com",
   bookingFormAction: "https://formspree.io/f/xeepnjjr"
 };
 
