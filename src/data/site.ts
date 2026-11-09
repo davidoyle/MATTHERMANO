@@ -3,11 +3,8 @@ export const site = {
   tagline: "Warm vocals, late-night soul",
   genre: "Pop soul",
   location: "Vancouver, BC",
-  /*
-   * Public contact address shown in the footer.
-   * Taken from the site's original upload. Confirm it still receives mail.
-   */
-  email: "bookings@heymhmusic.com",
+  /** Public contact address: footer, booking page, and the form's error fallback. */
+  email: "matthemano@gmail.com",
   bookingFormAction: "https://formspree.io/f/xeepnjjr"
 };
 
